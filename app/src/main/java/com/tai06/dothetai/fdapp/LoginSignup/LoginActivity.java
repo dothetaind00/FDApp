@@ -96,7 +96,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void run() {
                 RequestQueue requestQueue = Volley.newRequestQueue(LoginActivity.this);
-                StringRequest stringRequest = new StringRequest(Request.Method.POST, Link.URL_CHECK_LOGIN, new Response.Listener<String>() {
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, Link.URL_check_login, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         if (response.trim().equals("success")){

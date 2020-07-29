@@ -149,7 +149,7 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void run() {
                 RequestQueue requestQueue = Volley.newRequestQueue(SignupActivity.this);
-                StringRequest stringRequest = new StringRequest(Request.Method.POST, Link.URL_CHECK_SIGNUP, new Response.Listener<String>() {
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, Link.URL_check_signup, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         if (response.trim().equals("success")){
@@ -184,7 +184,7 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void run() {
                 RequestQueue requestQueue = Volley.newRequestQueue(SignupActivity.this);
-                StringRequest stringRequest = new StringRequest(Request.Method.POST, Link.URL_POST_INSERT_SIGNUP, new Response.Listener<String>() {
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, Link.URL_postInsertKH, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         if (response.trim().equals("success")){
@@ -205,7 +205,7 @@ public class SignupActivity extends AppCompatActivity {
                         Map<String, String> param = new HashMap<>();
                         param.put("email",email);
                         param.put("password",password);
-                        param.put("name",name);
+                        param.put("ten_kh",name);
                         param.put("sdt",sdt);
                         return param;
                     }

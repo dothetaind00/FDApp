@@ -96,4 +96,119 @@
         android:layout_marginTop="6dp"
         android:layout_width="wrap_content"
         android:layout_height="1dp"/>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TableRow>
+                <TextView
+                    android:text="Chi Tiết Đơn Hàng"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:layout_weight="5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+                <ImageView
+                    android:src="@drawable/ic_expand_less"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+            </TableRow>
+        </TableLayout>
+        <TableLayout
+            android:layout_marginLeft="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TableRow>
+                <TextView
+                    android:text="Khách hàng: "
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:id="@+id/ten_kh"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="16dp"
+                    android:textSize="16sp"
+                    android:layout_weight="2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+            </TableRow>
+            <TableRow>
+                <TextView
+                    android:text="Địa chỉ: "
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:id="@+id/diachi"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_weight="2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+            </TableRow>
+            <TableRow>
+                <TextView
+                    android:text="Số điện thoại: "
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:id="@+id/sdt"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_weight="2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+            </TableRow>
+            <TableRow>
+                <TextView
+                    android:text="Ngày đặt hàng: "
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:id="@+id/ngaydat_hd"
+                    android:text="dd/MM/yyyy HH:mm"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="16dp"
+                    android:textSize="16sp"
+                    android:layout_weight="2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+            </TableRow>
+            <TableRow>
+                <TextView
+                    android:text="Ngày giao hàng: "
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:id="@+id/ngaygiao_hd"
+                    android:text="dd/MM/yyyy HH:mm"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="16dp"
+                    android:textSize="16sp"
+                    android:layout_weight="2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+            </TableRow>
+        </TableLayout>
+    </LinearLayout>
 </LinearLayout>

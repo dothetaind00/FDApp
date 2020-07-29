@@ -39,7 +39,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
         Sanpham sanpham = mList.get(position);
         Picasso.get().load(sanpham.getImage()).into(holder.img_product);
         holder.name_product.setText(sanpham.getTen_sp());
-        holder.price.setText(String.valueOf(sanpham.getGia_sp()));
+        holder.price.setText(String.valueOf(sanpham.getGia_sp())+"VNĐ");
     }
 
     @Override

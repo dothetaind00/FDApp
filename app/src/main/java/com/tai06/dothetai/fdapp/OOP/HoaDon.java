@@ -26,6 +26,15 @@ public class HoaDon implements Serializable {
         this.ngaygiao_hd = ngaygiao_hd;
     }
 
+    public HoaDon(int ma_hd, String ten_kh, String diachi, String sdt, String ngaydat_hd, String ngaygiao_hd) {
+        this.ma_hd = ma_hd;
+        this.ten_kh = ten_kh;
+        this.diachi = diachi;
+        this.sdt = sdt;
+        this.ngaydat_hd = ngaydat_hd;
+        this.ngaygiao_hd = ngaygiao_hd;
+    }
+
     public int getMa_hd() {
         return ma_hd;
     }

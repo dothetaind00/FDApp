@@ -1,5 +1,6 @@
 package com.tai06.dothetai.fdapp.Adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,35 +8,34 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
-import com.tai06.dothetai.fdapp.Fragment.TrangchuFragment;
+import com.tai06.dothetai.fdapp.Activity.SearchViewActivity;
 import com.tai06.dothetai.fdapp.OOP.Sanpham;
 import com.tai06.dothetai.fdapp.R;
 
 import java.util.List;
 
-public class DrinkAdapter extends RecyclerView.Adapter<DrinkAdapter.ViewHolder> {
+public class SearchviewAdapter extends RecyclerView.Adapter<SearchviewAdapter.ViewHolder> {
 
     private List<Sanpham> mList;
-    private Fragment mFrag;
+    private Context context;
 
-    public DrinkAdapter(List<Sanpham> mList, Fragment mFrag) {
+    public SearchviewAdapter(List<Sanpham> mList, Context context) {
         this.mList = mList;
-        this.mFrag = mFrag;
+        this.context = context;
     }
 
     @NonNull
     @Override
-    public DrinkAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_item_drink, parent, false);
+    public SearchviewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_item_search, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull DrinkAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull SearchviewAdapter.ViewHolder holder, int position) {
         Sanpham sanpham = mList.get(position);
         Picasso.get().load(sanpham.getImage()).into(holder.img_product);
         holder.name_product.setText(sanpham.getTen_sp());
@@ -60,7 +60,7 @@ public class DrinkAdapter extends RecyclerView.Adapter<DrinkAdapter.ViewHolder> 
                 @Override
                 public void onClick(View v) {
                     Sanpham sanpham = mList.get(getAdapterPosition());
-                    ((TrangchuFragment)mFrag).Click_ItemDrink(sanpham);
+                    ((SearchViewActivity)context).showProduct(sanpham);
                 }
             });
         }

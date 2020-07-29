@@ -40,7 +40,6 @@ public class InfoDrinkActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private Button tongtien;
-    private Handler handler;
     private Sanpham sanpham;
     private int sL_sp = 1, sum_money = 0;
     private TextView name_product, detail_product, soluong;
@@ -55,8 +54,6 @@ public class InfoDrinkActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_drink);
         init();
-        initHandler();
-        getDrink();
         Click_radio(sanpham.getGia_sp());
         Click_radio();
         Click_expanable(temp_row, temp_group);
@@ -98,7 +95,7 @@ public class InfoDrinkActivity extends AppCompatActivity {
         Picasso.get().load(sanpham.getImage()).into(image_product);
         name_product.setText(sanpham.getTen_sp());
         detail_product.setText(sanpham.getMota_sp());
-        tongtien.setText(String.valueOf(sanpham.getGia_sp()) + "VNĐ");
+        tongtien.setText(String.valueOf(sanpham.getGia_sp())+"VNĐ");
 
         Intent intent = getIntent();
         Bundle bundle = intent.getBundleExtra("user");
@@ -133,7 +130,6 @@ public class InfoDrinkActivity extends AppCompatActivity {
         ic_remove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 sL_sp--;
                 if (sL_sp <= 1) {
                     sL_sp = 1;
@@ -150,7 +146,7 @@ public class InfoDrinkActivity extends AppCompatActivity {
             public void onClick(View v) {
                 sL_sp++;
                 if (sL_sp >= 10){
-                    sL_sp = 5;
+                    sL_sp = 10;
                     Toast.makeText(InfoDrinkActivity.this, "Số lượng đặt tối đa", Toast.LENGTH_SHORT).show();
                 }
                 sum_money = sL_sp * (gia_mh + tien1);
@@ -177,71 +173,6 @@ public class InfoDrinkActivity extends AppCompatActivity {
         });
     }
 
-    private void initHandler() {
-        handler = new Handler() {
-            @Override
-            public void handleMessage(@NonNull Message msg) {
-                switch (msg.what) {
-                    case MSG_Drink:
-                        sanpham = (Sanpham) msg.obj;
-                        setAdapter(sanpham);
-                        break;
-                }
-            }
-        };
-    }
-
-    private void setAdapter(Sanpham sanpham) {
-        Picasso.get().load(sanpham.getImage()).into(image_product);
-        name_product.setText(sanpham.getTen_sp());
-        detail_product.setText(sanpham.getMota_sp());
-        tongtien.setText(String.valueOf(sanpham.getGia_sp()) + "VNĐ");
-    }
-
-    private void getDrink() {
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                RequestQueue requestQueue = Volley.newRequestQueue(InfoDrinkActivity.this);
-                StringRequest stringRequest = new StringRequest(Request.Method.POST, Link.URL_Combo, new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            Sanpham sanpham = new Sanpham();
-                            JSONObject jsonObject = new JSONObject(response);
-                            sanpham.setMa_sp(jsonObject.getInt("ma_sp"));
-                            sanpham.setMa_lh(jsonObject.getInt("ma_lh"));
-                            sanpham.setTen_sp(jsonObject.getString("ten_sp"));
-                            sanpham.setGia_sp(jsonObject.getInt("gia_sp"));
-                            sanpham.setImage(jsonObject.getString("image"));
-                            sanpham.setMota_sp(jsonObject.getString("mota_sp"));
-                            Message msg = new Message();
-                            msg.what = MSG_Drink;
-                            msg.obj = sanpham;
-                            handler.sendMessage(msg);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(InfoDrinkActivity.this, "Xảy ra lỗi", Toast.LENGTH_SHORT).show();
-                        Log.d("AAA", "Lỗi!\n " + error.toString());
-                    }
-                }) {
-                    @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
-                        Map<String, String> param = new HashMap<>();
-                        param.put("ma_sp", String.valueOf(sanpham.getMa_sp()));
-                        return param;
-                    }
-                };
-                requestQueue.add(stringRequest);
-            }
-        });
-        thread.start();
-    }
 
     private void Click_radio() {
         tongtien.setOnClickListener(new View.OnClickListener() {
@@ -258,16 +189,22 @@ public class InfoDrinkActivity extends AppCompatActivity {
                 String ghichu = "Nhiệt độ: " + a + "\nKích thước: " + b + "\nLượng đường: " + c + "\nLượng đá: " + d;
 
                 Intent intent = new Intent(getApplication(), HoaDonActivity.class);
+
                 Bundle bundle = new Bundle();
                 bundle.putString("ma_kh", ma_kh);
                 bundle.putString("email", email);
                 bundle.putString("ten_kh", ten_kh);
                 bundle.putString("sdt", sdt);
                 intent.putExtra("user", bundle);
+
                 intent.putExtra("ghichu", ghichu);
                 intent.putExtra("soluong", soluong.getText().toString().trim());
                 intent.putExtra("tongtien", tongtien.getText().toString().trim());
-                intent.putExtra("info", sanpham);
+
+                intent.putExtra("ma_sp", String.valueOf(sanpham.getMa_sp()));
+                intent.putExtra("ten_sp", sanpham.getTen_sp());
+                intent.putExtra("gia_sp", String.valueOf(sanpham.getGia_sp()));
+                intent.putExtra("image", sanpham.getImage());
                 startActivity(intent);
             }
         });

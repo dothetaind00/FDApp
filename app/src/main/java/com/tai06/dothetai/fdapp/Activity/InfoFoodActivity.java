@@ -56,8 +56,6 @@ public class InfoFoodActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_food);
         init();
-        initHandler();
-        getFood();
         Click_checkbox(sanpham.getGia_sp());
         Click_event();
     }
@@ -78,7 +76,19 @@ public class InfoFoodActivity extends AppCompatActivity {
         checkBox3 = findViewById(R.id.checkbox3);
         ic_add = findViewById(R.id.ic_add);
         ic_remove = findViewById(R.id.ic_remove);
+
+        Intent intent = getIntent();
+        Bundle bundle = intent.getBundleExtra("user");
+        ma_kh = bundle.getString("ma_kh");
+        email = bundle.getString("email");
+        ten_kh = bundle.getString("ten_kh");
+        sdt = bundle.getString("sdt");
+
         sanpham = (Sanpham) getIntent().getSerializableExtra("food");
+        Picasso.get().load(sanpham.getImage()).into(image_product);
+        name_product.setText(sanpham.getTen_sp());
+        detail_product.setText(sanpham.getMota_sp());
+        tongtien.setText(String.valueOf(sanpham.getGia_sp())+"VNĐ");
     }
 
     private void Click_event(){
@@ -86,16 +96,22 @@ public class InfoFoodActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplication(), HoaDonActivity.class);
+
                 Bundle bundle = new Bundle();
                 bundle.putString("ma_kh",ma_kh);
                 bundle.putString("email",email);
                 bundle.putString("ten_kh",ten_kh);
                 bundle.putString("sdt",sdt);
                 intent.putExtra("user",bundle);
+
                 intent.putExtra("ghichu",ghichu);
                 intent.putExtra("soluong",soluong.getText().toString().trim());
                 intent.putExtra("tongtien",tongtien.getText().toString().trim());
-                intent.putExtra("info",sanpham);
+
+                intent.putExtra("ma_sp", String.valueOf(sanpham.getMa_sp()));
+                intent.putExtra("ten_sp", sanpham.getTen_sp());
+                intent.putExtra("gia_sp", String.valueOf(sanpham.getGia_sp()));
+                intent.putExtra("image", sanpham.getImage());
                 startActivity(intent);
             }
         });
@@ -108,18 +124,18 @@ public class InfoFoodActivity extends AppCompatActivity {
         checkBox1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                int sl = Integer.parseInt(soluong.getText().toString().trim());
+//                int sl = Integer.parseInt(soluong.getText().toString().trim());
                 if (isChecked){ //mặc định ischecked = true
-                    tien1 = 23000;
+//                    tien1 = 23000;
                     tong = tong + 23000;
-                    sum_money = (sl * gia_mh) + tong;
+                    sum_money = (sL_sp * gia_mh) + tong;
                     tongtien.setText(String.valueOf(sum_money) + "VNĐ");
                     text1 = text1 + "Miếng bò whopper nhỏ +23000VNĐ";
                     ghichu = text1+"\n"+text2+"\n"+text3;
                 }else{
-                    tien1 = 0;
+//                    tien1 = 0;
                     tong = tong - 23000;
-                    sum_money = (sl * gia_mh) + tong;
+                    sum_money = (sL_sp * gia_mh) + tong;
                     tongtien.setText(String.valueOf(sum_money) + "VNĐ");
                     text1 = "";
                     ghichu = text1+text2+"\n"+text3;
@@ -129,18 +145,18 @@ public class InfoFoodActivity extends AppCompatActivity {
         checkBox2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                int sl = Integer.parseInt(soluong.getText().toString().trim());
+//                int sl = Integer.parseInt(soluong.getText().toString().trim());
                 if (isChecked){ //mặc định ischecked = true
-                    tien2 = 15000;
+//                    tien2 = 15000;
                     tong = tong + 15000;
-                    sum_money = (sl * gia_mh) + tong;
+                    sum_money = (sL_sp * gia_mh) + tong;
                     tongtien.setText(String.valueOf(sum_money) + "VNĐ");
                     text2 = text2 + "Thịt xông khói +15000VNĐ";
                     ghichu = text1+"\n"+text2+"\n"+text3;
                 }else{
-                    tien2 = 0;
+//                    tien2 = 0;
                     tong = tong - 15000;
-                    sum_money = (sl * gia_mh) + tong;
+                    sum_money = (sL_sp * gia_mh) + tong;
                     tongtien.setText(String.valueOf(sum_money) + "VNĐ");
                     text2 ="";
                     ghichu = text1+"\n"+text2+text3;
@@ -150,18 +166,18 @@ public class InfoFoodActivity extends AppCompatActivity {
         checkBox3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                int sl = Integer.parseInt(soluong.getText().toString().trim());
+//                int sl = Integer.parseInt(soluong.getText().toString().trim());
                 if (isChecked){ //mặc định ischecked = true
-                    tien3 = 12000;
+//                    tien3 = 12000;
                     tong = tong + 12000;
-                    sum_money = (sl * gia_mh) + tong;
+                    sum_money = (sL_sp * gia_mh) + tong;
                     tongtien.setText(String.valueOf(sum_money) + "VNĐ");
                     text3 = text3 + "Phô mai mỹ +12000VNĐ";
                     ghichu = text1+"\n"+text2+"\n"+text3;
                 }else{
-                    tien3 = 0;
+//                    tien3 = 0;
                     tong = tong - 12000;
-                    sum_money = (sl * gia_mh) + tong;
+                    sum_money = (sL_sp * gia_mh) + tong;
                     tongtien.setText(String.valueOf(sum_money) + "VNĐ");
                     text3 = "";
                     ghichu = text1+"\n"+text2+text3;
@@ -172,96 +188,34 @@ public class InfoFoodActivity extends AppCompatActivity {
         ic_remove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                sL_sp--;
                 if (sL_sp == 1) {
-                    ic_remove.setEnabled(false);
+                    sL_sp = 1;
                     ic_remove.setImageResource(R.drawable.ic_remove_silver);
-                } else {
-                    sL_sp = sL_sp - 1;
-                    soluong.setText(String.valueOf(sL_sp));
-                    sum_money = (sL_sp * gia_mh) + tong;
-                    tongtien.setText(String.valueOf(sum_money) + "VNĐ");
+                    ic_remove.setEnabled(false);
                 }
+                soluong.setText(String.valueOf(sL_sp));
+                sum_money = sL_sp * (gia_mh + tien1);
+                tongtien.setText(String.valueOf(sum_money) + "VNĐ");
             }
         });
         ic_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sL_sp = sL_sp + 1;
-                sum_money = (sL_sp * gia_mh) + tong;
+                sL_sp++;
+                if (sL_sp > 10){
+                    sL_sp = 10;
+                    Toast.makeText(InfoFoodActivity.this, "Số lượng đặt tối đa", Toast.LENGTH_SHORT).show();
+                }
+                sum_money = sL_sp * (gia_mh + tien1);
                 ic_remove.setEnabled(true);
                 ic_remove.setImageResource(R.drawable.ic_remove);
                 soluong.setText(String.valueOf(sL_sp));
-//                sum_money = (slmh * gia_mh) + tong;
                 tongtien.setText(String.valueOf(sum_money) + "VNĐ");
             }
         });
     }
 
-    private void initHandler() {
-        handler = new Handler(){
-            @Override
-            public void handleMessage(@NonNull Message msg) {
-                switch (msg.what){
-                    case MSG_INFO_FOOD:
-                        sanpham = (Sanpham) msg.obj;
-                        setAdapter(sanpham);
-                        break;
-                }
-            }
-        };
-    }
-
-    private void setAdapter(Sanpham sanpham){
-        Picasso.get().load(sanpham.getImage()).into(image_product);
-        name_product.setText(sanpham.getTen_sp());
-        detail_product.setText(sanpham.getMota_sp());
-        tongtien.setText(String.valueOf(sanpham.getGia_sp())+"VNĐ");
-    }
-
-    private void getFood(){
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                RequestQueue requestQueue = Volley.newRequestQueue(InfoFoodActivity.this);
-                StringRequest stringRequest = new StringRequest(Request.Method.POST, Link.URL_Combo, new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            Sanpham sanpham = new Sanpham();
-                            JSONObject jsonObject = new JSONObject(response);
-                            sanpham.setMa_sp(jsonObject.getInt("ma_sp"));
-                            sanpham.setMa_lh(jsonObject.getInt("ma_lh"));
-                            sanpham.setTen_sp(jsonObject.getString("ten_sp"));
-                            sanpham.setGia_sp(jsonObject.getInt("gia_sp"));
-                            sanpham.setImage(jsonObject.getString("image"));
-                            sanpham.setMota_sp(jsonObject.getString("mota_sp"));
-                            Message msg = new Message();
-                            msg.what = MSG_INFO_FOOD;
-                            msg.obj = sanpham;
-                            handler.sendMessage(msg);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(InfoFoodActivity.this, "Xảy ra lỗi", Toast.LENGTH_SHORT).show();
-                        Log.d("AAA", "Lỗi!\n " + error.toString());
-                    }
-                }){
-                    @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
-                        Map<String, String> param = new HashMap<>();
-                        param.put("ma_sp",String.valueOf(sanpham.getMa_sp()));
-                        return param;
-                    }
-                };
-                requestQueue.add(stringRequest);
-            }
-        });
-        thread.start();
-    }
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();

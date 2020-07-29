@@ -162,6 +162,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (item.getItemId()){
             case R.id.search_bar:
                 Intent intent = new Intent(MainActivity.this,SearchViewActivity.class);
+                intent.putExtra("user",khachHang);
                 startActivity(intent);
                 return true;
             default:
@@ -188,7 +189,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void run() {
                 RequestQueue requestQueue = Volley.newRequestQueue(MainActivity.this);
-                StringRequest stringRequest = new StringRequest(Request.Method.POST, Link.URL_INFO_PERSON, new Response.Listener<String>() {
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, Link.URL_getInfoKH, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         try {

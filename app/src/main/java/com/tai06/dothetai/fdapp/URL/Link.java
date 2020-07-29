@@ -3,29 +3,36 @@ package com.tai06.dothetai.fdapp.URL;
 import java.util.regex.Pattern;
 
 public class Link {
-    public static final String URL_Food = "https://dothetaind00.000webhostapp.com/FoodDrink/Query/Select_home.php";
-    public static final String URL_Drink = "https://dothetaind00.000webhostapp.com/FoodDrink/Query/Select_home1.php";
-    public static final String URL_Combo = "https://dothetaind00.000webhostapp.com/FoodDrink/Query/Select_home2.php";
-    public static final String URL_Search = "https://dothetaind00.000webhostapp.com/FoodDrink/Query/PostSearch.php";
-    public static final String Info = "https://dothetaind00.000webhostapp.com/FoodDrink/Query/getThongtin.php";
+    // recycle trangchu
+    public static final String URL_getFood = "https://tai06dothe.000webhostapp.com/FDApp/PHP/getFood.php";
+    public static final String URL_getDrink = "https://tai06dothe.000webhostapp.com/FDApp/PHP/getDrink.php";
+    public static final String URL_getCombo = "https://tai06dothe.000webhostapp.com/FDApp/PHP/getCombo.php";
 
-    public static final String URL_GETpost_HD = "https://dothetaind00.000webhostapp.com/FoodDrink/Query/postDonhang.php";
-    public static final String URL_POST_HD = "https://dothetaind00.000webhostapp.com/FoodDrink/Query/postAddHoaDon.php";
-    public static final String URL_CANCEL_HD = "https://dothetaind00.000webhostapp.com/FoodDrink/Query/post_Cancel_HD.php";
-    public static final String URL_DELTE_HD = "https://dothetaind00.000webhostapp.com/FoodDrink/Query/post_Delete_HD.php";
+    //searchview
+    public static final String URL_getSearchview = "https://tai06dothe.000webhostapp.com/FDApp/PHP/getSearchview.php";
+    public static final String URL_check_searchview = "https://tai06dothe.000webhostapp.com/FDApp/PHP/check_searchview.php";
 
-    public static final String URL_CHECK_LOGIN = "https://dothetaind00.000webhostapp.com/FoodDrink/Query/check_login.php";
-    public static final String URL_INFO_PERSON = "https://dothetaind00.000webhostapp.com/FoodDrink/Query/getInfoPerson.php";
-    public static final String URL_UPDATE_PSW = "https://dothetaind00.000webhostapp.com/FoodDrink/Query/postUpdatePassword.php";
+    //Viewmore
+    public static final String URL_getViewmore = "https://tai06dothe.000webhostapp.com/FDApp/PHP/getViewmore.php";
 
-    public static final String URL_CHECK_SIGNUP = "https://dothetaind00.000webhostapp.com/FoodDrink/Query/checkSignUp.php";
-    public static final String URL_POST_INSERT_SIGNUP = "https://dothetaind00.000webhostapp.com/FoodDrink/Query/postInsertPerson.php";
+    //check loginsignup
+    public static final String URL_check_login = "https://tai06dothe.000webhostapp.com/FDApp/PHP/check_login.php";
+    public static final String URL_check_signup = "https://tai06dothe.000webhostapp.com/FDApp/PHP/check_signup.php";
 
-    public static final String URL_CHECK_SEARCHVIEW = "https://dothetaind00.000webhostapp.com/FoodDrink/Query/check_searchview.php";
-    public static final String URL_CHECK_DONHANG = "https://dothetaind00.000webhostapp.com/FoodDrink/Query/check_donhang.php";
+    //khach hang
+    public static final String URL_postInsertKH = "https://tai06dothe.000webhostapp.com/FDApp/PHP/postInsertKH.php";
+    public static final String URL_postUpdateKH = "https://tai06dothe.000webhostapp.com/FDApp/PHP/postUpdateKH.php";
+    public static final String URL_getInfoKH = "https://tai06dothe.000webhostapp.com/FDApp/PHP/getInfoKH.php";
 
-    public static final String URL_GET_VIEWPLUS = "https://dothetaind00.000webhostapp.com/FoodDrink/Query/get_ViewPlus.php";
 
+    //donhang
+    public static final String URL_getDonHang = "https://tai06dothe.000webhostapp.com/FDApp/PHP/getDonHang.php";
+    public static final String URL_check_donhang = "https://tai06dothe.000webhostapp.com/FDApp/PHP/check_donhang.php";
+    public static final String URL_check_hoadon = "https://tai06dothe.000webhostapp.com/FDApp/PHP/check_hoadon.php";
+
+    //hoa don
+    public static final String URL_postInsertHD = "https://tai06dothe.000webhostapp.com/FDApp/PHP/postInsertHD.php";
+    public static final String URL_postInsertCTHD = "https://tai06dothe.000webhostapp.com/FDApp/PHP/postInsertCTHD.php";
 
     //Slide image
     public static final String URL_Slide1 = "https://dothetaind00.000webhostapp.com/FoodDrink/Slide/banner4.jpg";
@@ -40,8 +47,8 @@ public class Link {
     public static final String  SUBJECT_SEND = "FoodD & Drink";
 
     //Address
-    public static final String url_getNameQuan = "https://dothetaind00.000webhostapp.com/FoodDrink/Query/getNameQuan.php";
-    public static final String url_getTenPhuong = "https://dothetaind00.000webhostapp.com/FoodDrink/Query/getTenPhuong.php";
+    public static final String URL_getQuan = "https://tai06dothe.000webhostapp.com/FDApp/PHP/getQuan.php";
+    public static final String URL_getPhuong = "https://tai06dothe.000webhostapp.com/FDApp/PHP/getPhuong.php";
 
     //id_quận
     public static final int id_hoankiem = 1;

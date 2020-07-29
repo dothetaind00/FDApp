@@ -77,9 +77,9 @@ public class TrangchuFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_trangchu, container, false);
         init();
         initHandler();
-        getSanpham(MSG_RECYL_Food, Link.URL_Food);
-        getSanpham(MSG_RECYL_Drink, Link.URL_Drink);
-        getSanpham(MSG_RECYL_Combo, Link.URL_Combo);
+        getSanpham(MSG_RECYL_Food, Link.URL_getFood);
+        getSanpham(MSG_RECYL_Drink, Link.URL_getDrink);
+        getSanpham(MSG_RECYL_Combo, Link.URL_getCombo);
         SlideImage();
         Click_textview(more_food,"Danh sách Food");
         Click_textview(more_drink,"Danh sách Drink");
@@ -186,6 +186,7 @@ public class TrangchuFragment extends Fragment {
                                 Message msg = new Message();
                                 msg.what = MSG;
                                 msg.obj = list;
+                                handler.sendMessage(msg);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }

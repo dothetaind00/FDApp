@@ -3,7 +3,6 @@
     package="com.tai06.dothetai.fdapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -14,18 +13,18 @@
         <activity android:name=".Activity.ViewMoreActivity"></activity>
         <activity android:name=".LoginSignup.ChangepswActivity" />
         <activity android:name=".LoginSignup.SignupActivity" />
-        <activity android:name=".LoginSignup.LoginActivity" />
-        <activity android:name=".Activity.HoaDonActivity" />
-        <activity android:name=".Activity.InfoDrinkActivity" />
-        <activity android:name=".Activity.InfoFoodActivity" />
-        <activity android:name=".Activity.SearchViewActivity" />
-        <activity android:name=".Activity.MainActivity">
+        <activity android:name=".LoginSignup.LoginActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Activity.HoaDonActivity" />
+        <activity android:name=".Activity.InfoDrinkActivity" />
+        <activity android:name=".Activity.InfoFoodActivity" />
+        <activity android:name=".Activity.SearchViewActivity" />
+        <activity android:name=".Activity.MainActivity"/>
     </application>
 
 </manifest>

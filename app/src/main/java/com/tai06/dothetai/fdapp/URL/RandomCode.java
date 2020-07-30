@@ -19,13 +19,12 @@ public class RandomCode {
                 "dd/MM/yyyy HH:mm");
         SimpleDateFormat f = new SimpleDateFormat("yyyy/MM/dd HH:mm");
         Date d = new Date();
-        try {/*from   w  w  w  . j  a  v  a  2s . c  om*/
+        try {
             d = formatter.parse(date);
         } catch (Exception e) {
             e.printStackTrace();
         }
         String dateString = f.format(d);
         return dateString;
-
     }
 }

@@ -21,6 +21,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.textfield.TextInputEditText;
 import com.tai06.dothetai.fdapp.Activity.MainActivity;
+import com.tai06.dothetai.fdapp.FogotPassword.ForgotpswActivity;
 import com.tai06.dothetai.fdapp.R;
 import com.tai06.dothetai.fdapp.URL.Link;
 
@@ -67,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
         forget_pass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, ChangepswActivity.class);
+                Intent intent = new Intent(LoginActivity.this, ForgotpswActivity.class);
                 startActivity(intent);
             }
         });

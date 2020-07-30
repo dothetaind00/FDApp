@@ -16,6 +16,7 @@ public class Link {
     public static final String URL_getViewmore = "https://tai06dothe.000webhostapp.com/FDApp/PHP/getViewmore.php";
 
     //check loginsignup
+    public static final String URL_check_email = "https://tai06dothe.000webhostapp.com/FDApp/PHP/check_email.php";
     public static final String URL_check_login = "https://tai06dothe.000webhostapp.com/FDApp/PHP/check_login.php";
     public static final String URL_check_signup = "https://tai06dothe.000webhostapp.com/FDApp/PHP/check_signup.php";
 
@@ -29,6 +30,9 @@ public class Link {
     public static final String URL_getDonHang = "https://tai06dothe.000webhostapp.com/FDApp/PHP/getDonHang.php";
     public static final String URL_check_donhang = "https://tai06dothe.000webhostapp.com/FDApp/PHP/check_donhang.php";
     public static final String URL_check_hoadon = "https://tai06dothe.000webhostapp.com/FDApp/PHP/check_hoadon.php";
+    public static final String URL_postDeleteCTHD = "https://tai06dothe.000webhostapp.com/FDApp/PHP/postDeleteCTHD.php";
+    public static final String URL_postDeleteHD = "https://tai06dothe.000webhostapp.com/FDApp/PHP/postDeleteHD.php";
+    public static final String URL_postUpdateCTHD = "https://tai06dothe.000webhostapp.com/FDApp/PHP/postUpdateCTHD.php";
 
     //hoa don
     public static final String URL_postInsertHD = "https://tai06dothe.000webhostapp.com/FDApp/PHP/postInsertHD.php";
@@ -38,7 +42,6 @@ public class Link {
     public static final String URL_Slide1 = "https://dothetaind00.000webhostapp.com/FoodDrink/Slide/banner4.jpg";
     public static final String URL_Slide2 = "https://dothetaind00.000webhostapp.com/FoodDrink/Slide/banner7.jpg";
     public static final String URL_Slide3 = "https://dothetaind00.000webhostapp.com/FoodDrink/Slide/banner6.jpg";
-
 
     //Pattern
     public static final Pattern PATTERN_EMAIL = Pattern.compile("^[a-zA-Z0-9_[^!@#%^&$*()\\s-+=]]+@[ge]mail.com$");

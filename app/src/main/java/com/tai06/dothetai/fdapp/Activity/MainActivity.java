@@ -33,6 +33,8 @@ import com.android.volley.toolbox.Volley;
 import com.google.android.material.navigation.NavigationView;
 import com.tai06.dothetai.fdapp.Fragment.DonhangFragment;
 import com.tai06.dothetai.fdapp.Fragment.TrangchuFragment;
+import com.tai06.dothetai.fdapp.LoginSignup.ChangepswActivity;
+import com.tai06.dothetai.fdapp.LoginSignup.LoginActivity;
 import com.tai06.dothetai.fdapp.OOP.CTHD;
 import com.tai06.dothetai.fdapp.OOP.HoaDon;
 import com.tai06.dothetai.fdapp.OOP.KhachHang;
@@ -64,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
         init();
         initHandler();
-        postKhachhang();
+        getInfoKH();
     }
 
     private void init(){
@@ -128,10 +130,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 back_home = false;
                 break;
             case R.id.menu_doimatkhau:
-
+                Intent intent1 = new Intent(MainActivity.this, ChangepswActivity.class);
+                intent1.putExtra("ma_kh",String.valueOf(khachHang.getMa_kh()));
+                intent1.putExtra("email",khachHang.getEmail());
+                intent1.putExtra("password",khachHang.getPassword());
+                startActivity(intent1);
                 break;
             case R.id.menu_dangxuat:
-
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.manager:
+//                Intent intent2 = getIntent();
+//                String email = intent2.getStringExtra("email");
+//                if (email.equals("a")){
+//                    item.setVisible(true);
+//                }
                 break;
         }
     }
@@ -182,9 +196,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     //Phần get thông tin khách hàng từ email đăng nhập
 
-    private void postKhachhang(){
+    private void getInfoKH(){
         Intent intent = getIntent();
-        String email =intent.getStringExtra("email");
+        String email = intent.getStringExtra("email");
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -241,5 +255,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             moveTaskToBack(true); // nếu là view home fragment ,sẽ thoát khỏi app
 //            super.onBackPressed();
         }
+    }
+
+    @Override
+    protected void onResume() {
+        getInfoKH();
+        super.onResume();
     }
 }

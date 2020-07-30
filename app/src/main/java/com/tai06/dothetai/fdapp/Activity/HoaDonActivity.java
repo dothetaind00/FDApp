@@ -122,6 +122,7 @@ public class HoaDonActivity extends AppCompatActivity {
     private void getDataIntent() {
         Intent intent = getIntent();
         Bundle bundle = intent.getBundleExtra("user");
+        email = bundle.getString("email");
         ma_kh = bundle.getString("ma_kh");
         ma_sp = intent.getStringExtra("ma_sp");
 
@@ -242,7 +243,7 @@ public class HoaDonActivity extends AppCompatActivity {
                 if (response.trim().equals("success")) {
                     postInsertCTHD(ma_hd);
                 } else {
-                    Toast.makeText(HoaDonActivity.this, "Vui lòng thử lạiiiii", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(HoaDonActivity.this, "Vui lòng thử lại", Toast.LENGTH_SHORT).show();
                 }
             }
         }, new Response.ErrorListener() {
@@ -280,6 +281,7 @@ public class HoaDonActivity extends AppCompatActivity {
             public void onResponse(String response) {
                 if (response.trim().equals("success")) {
                     Toast.makeText(HoaDonActivity.this, "Đặt thành công", Toast.LENGTH_SHORT).show();
+                    thanhtoan.setText("Quay lại trang chủ");
                 } else {
                     Toast.makeText(HoaDonActivity.this, "Vui lòng thử lại", Toast.LENGTH_SHORT).show();
                 }
@@ -322,7 +324,6 @@ public class HoaDonActivity extends AppCompatActivity {
         setdatetime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                calendar.add(Calendar.DAY_OF_MONTH, 2);
                 DatePickerDialog datePickerDialog = new DatePickerDialog(HoaDonActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -363,7 +364,8 @@ public class HoaDonActivity extends AppCompatActivity {
                     }
                 }, year, month, day);
                 datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
-                datePickerDialog.getDatePicker().setMaxDate(calendar.getTimeInMillis());
+                datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis()+(1000*60*60*24*2));//sau 2 ngày từ ngày hiện tại
+//                datePickerDialog.getDatePicker().setMaxDate(calendar.getTimeInMillis());
                 datePickerDialog.show();
             }
         });

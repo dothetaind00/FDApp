@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class CTHD extends HoaDon implements Serializable {
     private int ma_cthd;
     private int ma_hd;
+    private String ten_sp;
     private String image;
     private int sl_sp;
     private int gia_sp;
@@ -21,8 +22,9 @@ public class CTHD extends HoaDon implements Serializable {
         this.trangthai = trangthai;
     }
 
-    public CTHD(int ma_hd, String ten_kh, String diachi, String sdt, String ngaydat_hd, String ngaygiao_hd,String image , int sl_sp,int gia_sp , int thanhtien, String ghichu, String trangthai) {
+    public CTHD(int ma_hd, String ten_kh, String diachi, String sdt, String ngaydat_hd, String ngaygiao_hd,String ten_sp ,String image , int sl_sp,int gia_sp , int thanhtien, String ghichu, String trangthai) {
         super(ma_hd,ten_kh,diachi,sdt,ngaydat_hd,ngaygiao_hd);
+        this.ten_sp = ten_sp;
         this.image = image;
         this.sl_sp = sl_sp;
         this.gia_sp = gia_sp;
@@ -39,14 +41,12 @@ public class CTHD extends HoaDon implements Serializable {
         this.ma_cthd = ma_cthd;
     }
 
-    @Override
-    public int getMa_hd() {
-        return ma_hd;
+    public String getTen_sp() {
+        return ten_sp;
     }
 
-    @Override
-    public void setMa_hd(int ma_hd) {
-        this.ma_hd = ma_hd;
+    public void setTen_sp(String ten_sp) {
+        this.ten_sp = ten_sp;
     }
 
     public String getImage() {

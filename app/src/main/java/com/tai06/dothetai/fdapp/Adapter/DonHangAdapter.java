@@ -1,21 +1,37 @@
 package com.tai06.dothetai.fdapp.Adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TableLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.squareup.picasso.Picasso;
+import com.tai06.dothetai.fdapp.Fragment.DonhangFragment;
 import com.tai06.dothetai.fdapp.OOP.CTHD;
 import com.tai06.dothetai.fdapp.R;
+import com.tai06.dothetai.fdapp.URL.Link;
+import com.tai06.dothetai.fdapp.URL.RandomCode;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DonHangAdapter extends RecyclerView.Adapter<DonHangAdapter.ViewHolder> {
 
@@ -37,7 +53,63 @@ public class DonHangAdapter extends RecyclerView.Adapter<DonHangAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull DonHangAdapter.ViewHolder holder, int position) {
         CTHD cthd = mList.get(position);
-//        Picasso.get().load(cthd.getImage()).into(holder.image_product);
+        Picasso.get().load(cthd.getImage()).into(holder.image_product);
+        holder.name_product.setText(cthd.getTen_sp());
+        holder.price.setText(String.valueOf(cthd.getGia_sp()));
+        holder.status.setText(cthd.getTrangthai());
+        holder.soluong.setText(String.valueOf(cthd.getSl_sp()));
+        holder.ten_kh.setText(cthd.getTen_kh());
+        holder.diachi.setText(cthd.getDiachi());
+        holder.sdt.setText(cthd.getSdt());
+        holder.ngaydat_hd.setText(cthd.getNgaydat_hd());
+        holder.ngaygiao_hd.setText(cthd.getNgaygiao_hd());
+        holder.thanhtoan.setText(String.valueOf(cthd.getThanhtien())+"VNĐ");
+        holder.ic_expand_more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((DonhangFragment)mFrag).ShowHide(holder.ic_expand_more,holder.table_detail);
+            }
+        });
+        if (cthd.getTrangthai().equals("Đã hủy")){
+            holder.cancel_donhang.setText("Xoá");
+        }
+        holder.cancel_donhang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String textBtn = holder.cancel_donhang.getText().toString().trim();
+                if (textBtn.trim().equals("Hủy đơn hàng")){
+                    RequestQueue requestQueue = Volley.newRequestQueue(mFrag.getActivity());
+                    StringRequest stringRequest = new StringRequest(Request.Method.POST, Link.URL_postUpdateCTHD, new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            if (response.trim().equals("success")){
+                                Toast.makeText(mFrag.getActivity(), "Hệ thống đã xử lí", Toast.LENGTH_SHORT).show();
+                                holder.status.setText("Đã hủy");
+                            }else{
+                                Toast.makeText(mFrag.getActivity(),"Vui lòng thử lại!", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Toast.makeText(mFrag.getActivity(), "Xảy ra lỗi", Toast.LENGTH_SHORT).show();
+                            Log.d("AAA", "Lỗi!\n " + error.toString());
+                        }
+                    }){
+                        @Override
+                        protected Map<String, String> getParams() throws AuthFailureError {
+                            Map<String, String> param = new HashMap<>();
+                            param.put("ma_hd",String.valueOf(cthd.getMa_hd()));
+                            return param;
+                        }
+                    };
+                    requestQueue.add(stringRequest);
+                    holder.cancel_donhang.setText("Xóa");
+                }else{
+                    postDelectCTHD(cthd,position);
+                }
+            }
+        });
     }
 
     @Override
@@ -47,11 +119,12 @@ public class DonHangAdapter extends RecyclerView.Adapter<DonHangAdapter.ViewHold
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView image_product;
+        ImageButton ic_expand_more;
         TextView name_product,price,status,soluong;
         Button cancel_donhang;
-
+        TableLayout table_detail;
         //chitietdonhang
-        TextView ten_kh,diachi,sdt,ngaydat_hd,ngaygiao_hd;
+        TextView ten_kh,diachi,sdt,ngaydat_hd,ngaygiao_hd,thanhtoan;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             image_product = itemView.findViewById(R.id.image_product);
@@ -67,6 +140,68 @@ public class DonHangAdapter extends RecyclerView.Adapter<DonHangAdapter.ViewHold
             sdt = itemView.findViewById(R.id.sdt);
             ngaydat_hd = itemView.findViewById(R.id.ngaydat_hd);
             ngaygiao_hd = itemView.findViewById(R.id.ngaygiao_hd);
+            thanhtoan = itemView.findViewById(R.id.thanhtoan);
+            ic_expand_more = itemView.findViewById(R.id.ic_expand_more);
+            table_detail = itemView.findViewById(R.id.table_detail);
         }
+    }
+
+    private void postDelectCTHD(CTHD cthd,int i){
+        RequestQueue requestQueue = Volley.newRequestQueue(mFrag.getActivity());
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Link.URL_postDeleteCTHD, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                if (response.trim().equals("success")){
+                    Toast.makeText(mFrag.getActivity(), "Đã xóa", Toast.LENGTH_SHORT).show();
+                    postDelectHD(cthd,i);
+                }else{
+                    Toast.makeText(mFrag.getActivity(),"Vui lòng thử lại!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(mFrag.getActivity(), "Xảy ra lỗi", Toast.LENGTH_SHORT).show();
+                Log.d("AAA", "Lỗi!\n " + error.toString());
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> param = new HashMap<>();
+                param.put("ma_hd",String.valueOf(cthd.getMa_hd()));
+                return param;
+            }
+        };
+        requestQueue.add(stringRequest);
+    }
+
+    private void postDelectHD(CTHD cthd,int i){
+        RequestQueue requestQueue = Volley.newRequestQueue(mFrag.getActivity());
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Link.URL_postDeleteHD, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                if (response.trim().equals("success")){
+                    Toast.makeText(mFrag.getActivity(), "Đã xóa", Toast.LENGTH_SHORT).show();
+                    mList.remove(i);
+                    ((DonhangFragment) mFrag).setDonHangAdapter(mList);
+                }else{
+                    Toast.makeText(mFrag.getActivity(),"Vui lòng thử lại!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(mFrag.getActivity(), "Xảy ra lỗi", Toast.LENGTH_SHORT).show();
+                Log.d("AAA", "Lỗi!\n " + error.toString());
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> param = new HashMap<>();
+                param.put("ma_hd",String.valueOf(cthd.getMa_hd()));
+                return param;
+            }
+        };
+        requestQueue.add(stringRequest);
     }
 }

@@ -81,9 +81,9 @@ public class TrangchuFragment extends Fragment {
         getSanpham(MSG_RECYL_Drink, Link.URL_getDrink);
         getSanpham(MSG_RECYL_Combo, Link.URL_getCombo);
         SlideImage();
-        Click_textview(more_food,"Danh sách Food");
-        Click_textview(more_drink,"Danh sách Drink");
-        Click_textview(more_combo,"Danh sách Combo");
+        Click_textview(more_food,1,"Danh sách Food");
+        Click_textview(more_drink,2,"Danh sách Drink");
+        Click_textview(more_combo,3,"Danh sách Combo");
         return view;
     }
 
@@ -237,11 +237,17 @@ public class TrangchuFragment extends Fragment {
         }
     }
 
-    private void Click_textview(TextView textview,String title){
+    private void Click_textview(TextView textview,int ma_lh,String title){
         textview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), ViewMoreActivity.class);
+
+                Bundle bundle = new Bundle();
+                Databundle(bundle);
+                intent.putExtra("user",bundle);
+
+                intent.putExtra("ma_lh",ma_lh);
                 intent.putExtra("title",title);
                 startActivity(intent);
             }

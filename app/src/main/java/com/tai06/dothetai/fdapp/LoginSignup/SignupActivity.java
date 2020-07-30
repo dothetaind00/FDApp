@@ -41,6 +41,7 @@ public class SignupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
         init();
+        Click_event();
     }
 
     private void init(){
@@ -82,7 +83,7 @@ public class SignupActivity extends AppCompatActivity {
         Matcher matcher = Link.PATTERN_PASSWORD.matcher(psw);// PATTERN_PASSWORD là biểu thức chính quy
         if (!matcher.matches()){
             txt_inputlayout2.setErrorEnabled(true);
-            txt_inputlayout2.setError("Mật khẩu dài hơn 8 kí tự,không kí tự đặc biệt");
+            txt_inputlayout2.setError("Mật khẩu dài hơn 8 kí tự,gồm a-zA-Z0-9,không kí tự đặc biệt");
             return false;
         }else{
             txt_inputlayout2.setErrorEnabled(false);
@@ -149,7 +150,7 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void run() {
                 RequestQueue requestQueue = Volley.newRequestQueue(SignupActivity.this);
-                StringRequest stringRequest = new StringRequest(Request.Method.POST, Link.URL_check_signup, new Response.Listener<String>() {
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, Link.URL_check_email, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         if (response.trim().equals("success")){
@@ -207,6 +208,7 @@ public class SignupActivity extends AppCompatActivity {
                         param.put("password",password);
                         param.put("ten_kh",name);
                         param.put("sdt",sdt);
+                        param.put("image","");
                         return param;
                     }
                 };

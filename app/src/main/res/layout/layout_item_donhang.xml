@@ -85,7 +85,12 @@
             <Button
                 android:id="@+id/cancel_donhang"
                 android:text="Hủy đơn hàng"
+                android:textSize="16dp"
+                android:layout_marginTop="6dp"
                 android:textAllCaps="false"
+                android:paddingRight="20dp"
+                android:paddingLeft="20dp"
+                android:background="@drawable/shape_layout_button"
                 android:layout_gravity="center_horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -106,109 +111,140 @@
             <TableRow>
                 <TextView
                     android:text="Chi Tiết Đơn Hàng"
+                    android:textColor="#000"
                     android:textStyle="bold"
                     android:textSize="16sp"
                     android:layout_weight="5"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"/>
-                <ImageView
-                    android:src="@drawable/ic_expand_less"
+                <ImageButton
+                    android:id="@+id/ic_expand_more"
+                    android:src="@drawable/ic_expand_more"
                     android:layout_weight="1"
+                    android:background="#F1F0F0"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"/>
             </TableRow>
         </TableLayout>
         <TableLayout
-            android:layout_marginLeft="16dp"
+            android:id="@+id/table_detail"
+            android:visibility="gone"
+            android:background="@drawable/shape_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TableRow>
                 <TextView
                     android:text="Khách hàng: "
-                    android:textStyle="bold"
+                    android:textColor="#000"
                     android:textSize="16sp"
-                    android:layout_weight="1"
+                    android:layout_marginLeft="16dp"
+                    android:layout_weight="2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"/>
                 <TextView
                     android:id="@+id/ten_kh"
-                    android:textStyle="bold"
+                    android:textColor="#000"
                     android:layout_marginLeft="16dp"
                     android:textSize="16sp"
-                    android:layout_weight="2"
+                    android:layout_weight="3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"/>
             </TableRow>
             <TableRow>
                 <TextView
                     android:text="Địa chỉ: "
-                    android:textStyle="bold"
+                    android:textColor="#000"
                     android:textSize="16sp"
-                    android:layout_weight="1"
+                    android:layout_marginLeft="16dp"
+                    android:layout_weight="2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"/>
                 <TextView
                     android:id="@+id/diachi"
-                    android:textStyle="bold"
+                    android:textColor="#000"
                     android:textSize="16sp"
                     android:layout_marginLeft="16dp"
-                    android:layout_weight="2"
+                    android:layout_weight="3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"/>
             </TableRow>
             <TableRow>
                 <TextView
                     android:text="Số điện thoại: "
-                    android:textStyle="bold"
+                    android:textColor="#000"
                     android:textSize="16sp"
-                    android:layout_weight="1"
+                    android:layout_marginLeft="16dp"
+                    android:layout_weight="2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"/>
                 <TextView
                     android:id="@+id/sdt"
-                    android:textStyle="bold"
+                    android:textColor="#000"
                     android:textSize="16sp"
                     android:layout_marginLeft="16dp"
-                    android:layout_weight="2"
+                    android:layout_weight="3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"/>
             </TableRow>
             <TableRow>
                 <TextView
                     android:text="Ngày đặt hàng: "
-                    android:textStyle="bold"
+                    android:textColor="#000"
                     android:textSize="16sp"
-                    android:layout_weight="1"
+                    android:layout_marginLeft="16dp"
+                    android:layout_weight="2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"/>
                 <TextView
                     android:id="@+id/ngaydat_hd"
-                    android:text="dd/MM/yyyy HH:mm"
-                    android:textStyle="bold"
+                    android:textColor="#000"
                     android:layout_marginLeft="16dp"
                     android:textSize="16sp"
-                    android:layout_weight="2"
+                    android:layout_weight="3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"/>
             </TableRow>
             <TableRow>
                 <TextView
                     android:text="Ngày giao hàng: "
-                    android:textStyle="bold"
+                    android:textColor="#000"
                     android:textSize="16sp"
-                    android:layout_weight="1"
+                    android:layout_marginLeft="16dp"
+                    android:layout_weight="2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"/>
                 <TextView
                     android:id="@+id/ngaygiao_hd"
-                    android:text="dd/MM/yyyy HH:mm"
-                    android:textStyle="bold"
+                    android:textColor="#000"
                     android:layout_marginLeft="16dp"
                     android:textSize="16sp"
-                    android:layout_weight="2"
+                    android:layout_weight="3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"/>
             </TableRow>
+            <TableRow>
+                <TextView
+                    android:text="Thanh toán: "
+                    android:textColor="#000"
+                    android:textSize="16sp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_weight="2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:id="@+id/thanhtoan"
+                    android:textColor="#000"
+                    android:layout_marginLeft="16dp"
+                    android:textSize="16sp"
+                    android:layout_weight="3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+            </TableRow>
+            <View
+                android:background="@color/bac"
+                android:layout_marginTop="6dp"
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"/>
         </TableLayout>
     </LinearLayout>
 </LinearLayout>

@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Handler handler;
     private KhachHang khachHang;
     private TextView ten_kh,email_kh;
+    private Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +109,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fragment.setArguments(bundle);
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,fragment).commit();
         navigationView.setCheckedItem(R.id.menu_home);
+
+        //set visiable quản lí của admin
+        Menu menu = navigationView.getMenu();
+        MenuItem menuItem = menu.findItem(R.id.manager);
+        if (khachHang.getEmail().equals("a")){
+            menuItem.setVisible(true);
+        }else{
+            menuItem.setVisible(false);
+        }
     }
 
     //Phần setup Navigation
@@ -137,15 +147,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(intent1);
                 break;
             case R.id.menu_dangxuat:
-                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(intent);
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
                 break;
-            case R.id.manager:
-//                Intent intent2 = getIntent();
-//                String email = intent2.getStringExtra("email");
-//                if (email.equals("a")){
-//                    item.setVisible(true);
-//                }
+            case R.id.insert_sanpham:
+                startActivity(new Intent(MainActivity.this, ChangepswActivity.class));
+                break;
+            case R.id.update_sanpham:
                 break;
         }
     }

@@ -24,10 +24,12 @@
         android:visible="false">
         <menu>
             <item
-                android:id="@+id/insertSanPham"
+                android:id="@+id/insert_sanpham"
+                android:icon="@drawable/ic_post_add"
                 android:title="Thêm sản phẩm"/>
             <item
-                android:id="@+id/updateSanPham"
+                android:id="@+id/update_sanpham"
+                android:icon="@drawable/ic_update"
                 android:title="Cập nhật sản phẩm"/>
         </menu>
     </item>

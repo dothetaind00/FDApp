@@ -18,9 +18,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
@@ -32,6 +34,7 @@ import com.tai06.dothetai.fdapp.Adapter.ComboAdapter;
 import com.tai06.dothetai.fdapp.Adapter.DrinkAdapter;
 import com.tai06.dothetai.fdapp.Adapter.FoodAdapter;
 import com.tai06.dothetai.fdapp.Adapter.SlideImageAdapter;
+import com.tai06.dothetai.fdapp.OOP.KhachHang;
 import com.tai06.dothetai.fdapp.OOP.Sanpham;
 import com.tai06.dothetai.fdapp.OOP.SlideImage;
 import com.tai06.dothetai.fdapp.R;
@@ -52,6 +55,7 @@ public class TrangchuFragment extends Fragment {
     public static final int MSG_RECYL_Food = 1;
     public static final int MSG_RECYL_Drink = 2;
     public static final int MSG_RECYL_Combo = 3;
+    public static final int MSG_KhachHang = 4;
 
     private View view;
     private ViewPager slide_page;
@@ -64,6 +68,7 @@ public class TrangchuFragment extends Fragment {
     private FoodAdapter foodAdapter;
     private DrinkAdapter drinkAdapter;
     private ComboAdapter comboAdapter;
+    private KhachHang khachHang;
     private List<SlideImage> arrSlide;
     private SlideImageAdapter slideImageAdapter;
     private String ma_kh,email,ten_kh,sdt;
@@ -77,6 +82,7 @@ public class TrangchuFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_trangchu, container, false);
         init();
         initHandler();
+        getKhachHang();
         getSanpham(MSG_RECYL_Food, Link.URL_getFood);
         getSanpham(MSG_RECYL_Drink, Link.URL_getDrink);
         getSanpham(MSG_RECYL_Combo, Link.URL_getCombo);
@@ -130,6 +136,10 @@ public class TrangchuFragment extends Fragment {
                         arraySanpham = new ArrayList<>();
                         arraySanpham.addAll((Collection<? extends Sanpham>)msg.obj);
                         ComboAdapter(arraySanpham);
+                        break;
+                    case MSG_KhachHang:
+                        khachHang = new KhachHang();
+                        khachHang = (KhachHang) msg.obj;
                         break;
                 }
             }
@@ -198,7 +208,25 @@ public class TrangchuFragment extends Fragment {
 
                     }
                 });
+                int socketTimeout = 30000;//set timeout 30s
+                RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+                jsonArrayRequest.setRetryPolicy(policy);
                 requestQueue.add(jsonArrayRequest);
+            }
+        });
+        thread.start();
+    }
+
+
+    private void getKhachHang(){
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                khachHang = (KhachHang) getArguments().getSerializable("khachhang");
+                Message msg = new Message();
+                msg.what = MSG_KhachHang;
+                msg.obj = khachHang;
+                handler.sendMessage(msg);
             }
         });
         thread.start();
@@ -266,6 +294,7 @@ public class TrangchuFragment extends Fragment {
         Bundle bundle = new Bundle();
         Databundle(bundle);
         intent.putExtra("user",bundle);
+        intent.putExtra("khachhang",khachHang);
         intent.putExtra("food",sanpham);
         startActivity(intent);
     }

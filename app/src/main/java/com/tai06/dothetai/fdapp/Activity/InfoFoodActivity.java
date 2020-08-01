@@ -25,6 +25,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.squareup.picasso.Picasso;
+import com.tai06.dothetai.fdapp.OOP.KhachHang;
 import com.tai06.dothetai.fdapp.OOP.Sanpham;
 import com.tai06.dothetai.fdapp.R;
 import com.tai06.dothetai.fdapp.URL.Link;
@@ -45,6 +46,7 @@ public class InfoFoodActivity extends AppCompatActivity {
     private TextView name_product,detail_product,soluong;
     private Button tongtien;
     private Sanpham sanpham;
+    private KhachHang khachHang;
     private String text1 ="",text2="",text3="";
     public  String ghichu = "";
     private Handler handler;
@@ -84,7 +86,12 @@ public class InfoFoodActivity extends AppCompatActivity {
         ten_kh = bundle.getString("ten_kh");
         sdt = bundle.getString("sdt");
 
+        TextView test = findViewById(R.id.test);
+        khachHang = (KhachHang) getIntent().getSerializableExtra("khachhang");
+        test.setText(khachHang.getTen_kh());
+
         sanpham = (Sanpham) getIntent().getSerializableExtra("food");
+
         Picasso.get().load(sanpham.getImage()).into(image_product);
         name_product.setText(sanpham.getTen_sp());
         detail_product.setText(sanpham.getMota_sp());

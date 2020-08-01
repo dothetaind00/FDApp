@@ -110,14 +110,12 @@
                                 android:id="@+id/sp_parent"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:background="@drawable/shape_layout_edittext"
                                 android:layout_weight="1"
                                 android:textAlignment="center"></Spinner>
 
                             <Spinner
                                 android:id="@+id/sp_child"
                                 android:layout_width="0dp"
-                                android:background="@drawable/shape_layout_edittext"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:textAlignment="center"></Spinner>

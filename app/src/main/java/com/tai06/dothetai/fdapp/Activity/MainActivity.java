@@ -31,6 +31,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.navigation.NavigationView;
+import com.tai06.dothetai.fdapp.AdminActivity.InsertSanphamActivity;
 import com.tai06.dothetai.fdapp.Fragment.DonhangFragment;
 import com.tai06.dothetai.fdapp.Fragment.TrangchuFragment;
 import com.tai06.dothetai.fdapp.LoginSignup.ChangepswActivity;
@@ -102,6 +103,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void setInfo(KhachHang khachHang){
         Fragment fragment = new TrangchuFragment();
         Bundle bundle = new Bundle();
+        bundle.putSerializable("khachhang",khachHang);
         bundle.putString("ma_kh", String.valueOf(khachHang.getMa_kh()));
         bundle.putString("email",khachHang.getEmail());
         bundle.putString("ten_kh",khachHang.getTen_kh());
@@ -150,7 +152,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(new Intent(MainActivity.this, LoginActivity.class));
                 break;
             case R.id.insert_sanpham:
-                startActivity(new Intent(MainActivity.this, ChangepswActivity.class));
+                startActivity(new Intent(MainActivity.this, InsertSanphamActivity.class));
                 break;
             case R.id.update_sanpham:
                 break;
@@ -159,6 +161,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void showFragment(Fragment fragment){
         Bundle bundle = new Bundle();
+        bundle.putSerializable("khachhang",khachHang);
         bundle.putString("ma_kh", String.valueOf(khachHang.getMa_kh()));
         bundle.putString("email",khachHang.getEmail());
         bundle.putString("ten_kh",khachHang.getTen_kh());

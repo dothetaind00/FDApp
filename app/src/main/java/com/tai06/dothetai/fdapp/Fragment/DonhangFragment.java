@@ -32,6 +32,7 @@ import com.android.volley.toolbox.Volley;
 import com.tai06.dothetai.fdapp.Adapter.DonHangAdapter;
 import com.tai06.dothetai.fdapp.OOP.CTHD;
 import com.tai06.dothetai.fdapp.OOP.HoaDon;
+import com.tai06.dothetai.fdapp.OOP.KhachHang;
 import com.tai06.dothetai.fdapp.R;
 import com.tai06.dothetai.fdapp.URL.Link;
 
@@ -48,15 +49,17 @@ import java.util.Map;
 public class DonhangFragment extends Fragment {
 
     public static final int MSG_DONHANG = 1;
+    public static final int MSG_KhachHang = 2;
 
     private View view;
     private RecyclerView recycle_donhang;
     private Handler handler;
     private List<CTHD> arrCTHD;
     private DonHangAdapter donHangAdapter;
+    private KhachHang khachHang;
     private ProgressDialog progressDialog;
     private TextView empty_donhang;
-    private String ma_kh, email, ten_kh, sdt;
+    private String ma_kh;
 
     public DonhangFragment() {
     }
@@ -67,6 +70,7 @@ public class DonhangFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_donhang, container, false);
         init();
         initHandler();
+        getKhachHang();
         check_donhang();
         return view;
     }
@@ -74,12 +78,6 @@ public class DonhangFragment extends Fragment {
     private void init() {
         recycle_donhang = view.findViewById(R.id.recycle_donhang);
         empty_donhang = view.findViewById(R.id.empty_donhang);
-
-        Bundle bundle = getArguments();
-        ma_kh = bundle.getString("ma_kh");
-        email = bundle.getString("email");
-        ten_kh = bundle.getString("ten_kh");
-        sdt = bundle.getString("sdt");
     }
 
     private void initHandler() {
@@ -92,9 +90,27 @@ public class DonhangFragment extends Fragment {
                         arrCTHD.addAll((Collection<? extends CTHD>) msg.obj);
                         setDonHangAdapter(arrCTHD);
                         break;
+                    case MSG_KhachHang:
+                        khachHang = new KhachHang();
+                        khachHang = (KhachHang) msg.obj;
+                        break;
                 }
             }
         };
+    }
+
+    private void getKhachHang(){
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                khachHang = (KhachHang) getArguments().getSerializable("khachhang");
+                Message msg = new Message();
+                msg.what = MSG_KhachHang;
+                msg.obj = khachHang;
+                handler.sendMessage(msg);
+            }
+        });
+        thread.start();
     }
 
     public void setDonHangAdapter(List<CTHD> list) {
@@ -153,13 +169,13 @@ public class DonhangFragment extends Fragment {
                     @Override
                     protected Map<String, String> getParams() throws AuthFailureError {
                         Map<String, String> param = new HashMap<>();
-                        param.put("ma_kh", ma_kh);
+                        param.put("ma_kh", String.valueOf(khachHang.getMa_kh()));
                         return param;
                     }
                 };
-                int socketTimeout = 30000;//set timeout 30s
-                RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
-                stringRequest.setRetryPolicy(policy);
+//                int socketTimeout = 30000;//set timeout 30s
+//                RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+//                stringRequest.setRetryPolicy(policy);
                 requestQueue.add(stringRequest);
             }
         });
@@ -194,7 +210,7 @@ public class DonhangFragment extends Fragment {
                     @Override
                     protected Map<String, String> getParams() throws AuthFailureError {
                         Map<String, String> param = new HashMap<>();
-                        param.put("ma_kh", ma_kh);
+                        param.put("ma_kh", String.valueOf(khachHang.getMa_kh()));
                         return param;
                     }
                 };

@@ -22,6 +22,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.tai06.dothetai.fdapp.Adapter.ViewMoreAdapter;
+import com.tai06.dothetai.fdapp.OOP.KhachHang;
 import com.tai06.dothetai.fdapp.OOP.Sanpham;
 import com.tai06.dothetai.fdapp.R;
 import com.tai06.dothetai.fdapp.URL.Link;
@@ -38,6 +39,7 @@ import java.util.Map;
 
 public class ViewMoreActivity extends AppCompatActivity {
     public static final int MSG_ViewMore = 1;
+    public static final int MSG_KhachHang = 2;
 
     private Toolbar toolbar_viewmore;
     private RecyclerView recycle_viewmore;
@@ -45,7 +47,7 @@ public class ViewMoreActivity extends AppCompatActivity {
     private ViewMoreAdapter viewMoreAdapter;
     private List<Sanpham> arrSanpham;
     private TextView title_viewmore;
-    private String ma_kh,email,ten_kh,sdt;
+    private KhachHang khachHang;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +55,7 @@ public class ViewMoreActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_more);
         init();
         initHandler();
+        getKhachHang();
         getViewMore();
     }
 
@@ -65,12 +68,6 @@ public class ViewMoreActivity extends AppCompatActivity {
         recycle_viewmore = findViewById(R.id.recycle_viewmore);
         title_viewmore = findViewById(R.id.title_viewmore);
 
-        Intent intent = getIntent();
-        Bundle bundle = intent.getBundleExtra("user");
-        ma_kh = bundle.getString("ma_kh");
-        email = bundle.getString("email");
-        ten_kh = bundle.getString("ten_kh");
-        sdt = bundle.getString("sdt");
     }
 
     private void initHandler(){
@@ -83,9 +80,27 @@ public class ViewMoreActivity extends AppCompatActivity {
                         arrSanpham.addAll((Collection<? extends Sanpham>) msg.obj);
                         setAdapterViewMore(arrSanpham);
                         break;
+                    case MSG_KhachHang:
+                        khachHang = new KhachHang();
+                        khachHang = (KhachHang) msg.obj;
+                        break;
                 }
             }
         };
+    }
+
+    private void getKhachHang(){
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                khachHang = (KhachHang) getIntent().getSerializableExtra("khachhang");
+                Message msg = new Message();
+                msg.what = MSG_KhachHang;
+                msg.obj = khachHang;
+                handler.sendMessage(msg);
+            }
+        });
+        thread.start();
     }
 
     private void setAdapterViewMore(List<Sanpham> list){
@@ -151,26 +166,16 @@ public class ViewMoreActivity extends AppCompatActivity {
         thread.start();
     }
 
-    private void Databundle(Bundle bundle){
-        bundle.putString("ma_kh",ma_kh);
-        bundle.putString("email",email);
-        bundle.putString("ten_kh",ten_kh);
-        bundle.putString("sdt",sdt);
-    }
 
     public void showProduct(Sanpham sanpham){
         if (sanpham.getMa_lh()== 1 || sanpham.getMa_lh() == 3){
             Intent intent = new Intent(ViewMoreActivity.this, InfoFoodActivity.class);
-            Bundle bundle = new Bundle();
-            Databundle(bundle);
-            intent.putExtra("user",bundle);
+            intent.putExtra("khachhang",khachHang);
             intent.putExtra("food",sanpham);
             startActivity(intent);
         }else if (sanpham.getMa_lh()==2){
             Intent intent = new Intent(ViewMoreActivity.this, InfoDrinkActivity.class);
-            Bundle bundle = new Bundle();
-            Databundle(bundle);
-            intent.putExtra("user",bundle);
+            intent.putExtra("khachhang",khachHang);
             intent.putExtra("drink",sanpham);
             startActivity(intent);
         }

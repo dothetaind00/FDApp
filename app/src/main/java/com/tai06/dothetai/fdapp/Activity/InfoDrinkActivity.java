@@ -25,6 +25,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.squareup.picasso.Picasso;
+import com.tai06.dothetai.fdapp.OOP.KhachHang;
 import com.tai06.dothetai.fdapp.OOP.Sanpham;
 import com.tai06.dothetai.fdapp.R;
 import com.tai06.dothetai.fdapp.URL.Link;
@@ -36,25 +37,29 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class InfoDrinkActivity extends AppCompatActivity {
-    public static final int MSG_Drink = 1;
+    public static final int MSG_SanPham = 1;
+    public static final int MSG_KhachHang = 2;
 
     private Toolbar toolbar;
     private Button tongtien;
     private Sanpham sanpham;
+    private KhachHang khachHang;
+    private Handler handler;
     private int sL_sp = 1, sum_money = 0;
     private TextView name_product, detail_product, soluong;
     private ImageView ic_add, ic_remove, temp_row, size_row, sugar_row, cold_row, image_product;
     private RadioGroup temp_group, size_group, sugar_group, cold_group;
     private RadioButton radioButtontemp, radioButtonsize, radioButtonsugar, radioButtoncold, sizeL, sizeM;
     private int tien1 = 0;
-    private String ma_kh, email, ten_kh, sdt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_drink);
         init();
-        Click_radio(sanpham.getGia_sp());
+        initHandler();
+        getSanPham();
+        getKhachHang();
         Click_radio();
         Click_expanable(temp_row, temp_group);
         Click_expanable(size_row, size_group);
@@ -67,7 +72,6 @@ public class InfoDrinkActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
 
         temp_group = findViewById(R.id.temp_group);
         size_group = findViewById(R.id.size_group);
@@ -96,13 +100,61 @@ public class InfoDrinkActivity extends AppCompatActivity {
         name_product.setText(sanpham.getTen_sp());
         detail_product.setText(sanpham.getMota_sp());
         tongtien.setText(String.valueOf(sanpham.getGia_sp())+"VNĐ");
+    }
 
-        Intent intent = getIntent();
-        Bundle bundle = intent.getBundleExtra("user");
-        ma_kh = bundle.getString("ma_kh");
-        email = bundle.getString("email");
-        ten_kh = bundle.getString("ten_kh");
-        sdt = bundle.getString("sdt");
+    private void initHandler(){
+        handler = new Handler(){
+            @Override
+            public void handleMessage(@NonNull Message msg) {
+                switch (msg.what){
+                    case MSG_SanPham:
+                        sanpham = new Sanpham();
+                        sanpham = (Sanpham) msg.obj;
+                        setSanpham(sanpham);
+                        Click_radio(sanpham.getGia_sp());
+                        break;
+                    case MSG_KhachHang:
+                        khachHang = new KhachHang();
+                        khachHang = (KhachHang) msg.obj;
+                        break;
+                }
+            }
+        };
+    }
+
+    private void setSanpham(Sanpham sanpham){
+        Picasso.get().load(sanpham.getImage()).into(image_product);
+        name_product.setText(sanpham.getTen_sp());
+        detail_product.setText(sanpham.getMota_sp());
+        tongtien.setText(String.valueOf(sanpham.getGia_sp())+"VNĐ");
+    }
+
+    private void getSanPham(){
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                sanpham = (Sanpham) getIntent().getSerializableExtra("drink");
+                Message msg = new Message();
+                msg.what = MSG_SanPham;
+                msg.obj = sanpham;
+                handler.sendMessage(msg);
+            }
+        });
+        thread.start();
+    }
+
+    private void getKhachHang(){
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                khachHang = (KhachHang) getIntent().getSerializableExtra("khachhang");
+                Message msg = new Message();
+                msg.what = MSG_KhachHang;
+                msg.obj = khachHang;
+                handler.sendMessage(msg);
+            }
+        });
+        thread.start();
     }
 
     private void Click_radio(int gia_mh) {
@@ -189,22 +241,12 @@ public class InfoDrinkActivity extends AppCompatActivity {
                 String ghichu = "Nhiệt độ: " + a + "\nKích thước: " + b + "\nLượng đường: " + c + "\nLượng đá: " + d;
 
                 Intent intent = new Intent(getApplication(), HoaDonActivity.class);
-
-                Bundle bundle = new Bundle();
-                bundle.putString("ma_kh", ma_kh);
-                bundle.putString("email", email);
-                bundle.putString("ten_kh", ten_kh);
-                bundle.putString("sdt", sdt);
-                intent.putExtra("user", bundle);
+                intent.putExtra("khachhang",khachHang);
+                intent.putExtra("sanpham",sanpham);
 
                 intent.putExtra("ghichu", ghichu);
                 intent.putExtra("soluong", soluong.getText().toString().trim());
                 intent.putExtra("tongtien", tongtien.getText().toString().trim());
-
-                intent.putExtra("ma_sp", String.valueOf(sanpham.getMa_sp()));
-                intent.putExtra("ten_sp", sanpham.getTen_sp());
-                intent.putExtra("gia_sp", String.valueOf(sanpham.getGia_sp()));
-                intent.putExtra("image", sanpham.getImage());
                 startActivity(intent);
             }
         });

@@ -121,7 +121,7 @@ public class ForgotpswActivity extends AppCompatActivity {
             if (check_email()) {
                 checkgmail();
             } else {
-                Toast.makeText(this, "email không đúng", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Email không đúng", Toast.LENGTH_SHORT).show();
             }
         }
     }

@@ -71,7 +71,6 @@ public class TrangchuFragment extends Fragment {
     private KhachHang khachHang;
     private List<SlideImage> arrSlide;
     private SlideImageAdapter slideImageAdapter;
-    private String ma_kh,email,ten_kh,sdt;
 
     public TrangchuFragment() {
     }
@@ -107,12 +106,6 @@ public class TrangchuFragment extends Fragment {
         more_food = view.findViewById(R.id.more_food);
         more_drink = view.findViewById(R.id.more_drink);
         more_combo = view.findViewById(R.id.more_combo);
-
-        Bundle bundle = getArguments();
-        ma_kh = bundle.getString("ma_kh");
-        email = bundle.getString("email");
-        ten_kh  = bundle.getString("ten_kh");
-        sdt = bundle.getString("sdt");
     }
 
     //set danh sach product
@@ -270,11 +263,7 @@ public class TrangchuFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), ViewMoreActivity.class);
-
-                Bundle bundle = new Bundle();
-                Databundle(bundle);
-                intent.putExtra("user",bundle);
-
+                intent.putExtra("khachhang",khachHang);
                 intent.putExtra("ma_lh",ma_lh);
                 intent.putExtra("title",title);
                 startActivity(intent);
@@ -282,18 +271,8 @@ public class TrangchuFragment extends Fragment {
         });
     }
 
-    private void Databundle(Bundle bundle){
-        bundle.putString("ma_kh",ma_kh);
-        bundle.putString("email",email);
-        bundle.putString("ten_kh",ten_kh);
-        bundle.putString("sdt",sdt);
-    }
-
     public void Click_ItemFood(Sanpham sanpham){
         Intent intent = new Intent(getActivity(), InfoFoodActivity.class);
-        Bundle bundle = new Bundle();
-        Databundle(bundle);
-        intent.putExtra("user",bundle);
         intent.putExtra("khachhang",khachHang);
         intent.putExtra("food",sanpham);
         startActivity(intent);
@@ -301,9 +280,7 @@ public class TrangchuFragment extends Fragment {
 
     public void Click_ItemDrink(Sanpham sanpham){
         Intent intent = new Intent(getActivity(), InfoDrinkActivity.class);
-        Bundle bundle = new Bundle();
-        Databundle(bundle);
-        intent.putExtra("user",bundle);
+        intent.putExtra("khachhang",khachHang);
         intent.putExtra("drink",sanpham);
         startActivity(intent);
     }

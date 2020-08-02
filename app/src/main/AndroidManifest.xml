@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/MyAppTheme">
-        <activity android:name=".AdminActivity.InsertSanphamActivity"></activity>
+        <activity android:name=".AdminActivity.UpdateSanPhamActivity"></activity>
+        <activity android:name=".AdminActivity.InsertSanphamActivity" />
         <activity android:name=".FogotPassword.NewPasswordActivity" />
         <activity android:name=".FogotPassword.CheckCodeActivity" />
         <activity android:name=".FogotPassword.ForgotpswActivity" />

@@ -27,7 +27,7 @@ public class Link {
 
     //sanpham
     public static final String URL_check_sanpham = "https://tai06dothe.000webhostapp.com/FDApp/PHP/check_sanpham.php";
-    public static final String URL_postInsertSP = "https://tai06dothe.000webhostapp.com/FDApp/PHP/postInsertSP.php";
+    public static final String URL_postInsertSP = "https://tai06dothe.000webhostapp.com/FDApp/InsertSanPham/postInsertSP.php";
 
     //donhang
     public static final String URL_getDonHang = "https://tai06dothe.000webhostapp.com/FDApp/PHP/getDonHang.php";

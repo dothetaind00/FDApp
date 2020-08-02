@@ -36,6 +36,7 @@ import com.android.volley.toolbox.Volley;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.squareup.picasso.Picasso;
+import com.tai06.dothetai.fdapp.OOP.KhachHang;
 import com.tai06.dothetai.fdapp.OOP.Phuong;
 import com.tai06.dothetai.fdapp.OOP.Quan;
 import com.tai06.dothetai.fdapp.OOP.Sanpham;
@@ -64,6 +65,8 @@ public class HoaDonActivity extends AppCompatActivity {
     public static final int MIN = 1;
     public static final int MSG_QUAN = 1;
     public static final int MSG_PHUONG = 2;
+    public static final int MSG_SanPham = 3;
+    public static final int MSG_KhachHang = 4;
 
     private TextView tongtien_hd, soluong_sp, ghichu_hd, gia_sp, name_product, text_address;
     private TextView datetime, setdatetime;
@@ -79,7 +82,9 @@ public class HoaDonActivity extends AppCompatActivity {
     private List<Phuong> arrPhuong;
     private String address, txt_quan, txt_phuong;
     private String ma_kh, email, ten_kh, sdt, ma_sp,datemy;
-    boolean check;
+    private boolean check;
+    private Sanpham sanpham;
+    private KhachHang khachHang;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +92,8 @@ public class HoaDonActivity extends AppCompatActivity {
         setContentView(R.layout.activity_hoa_don);
         init();
         initHandler();
+        getSanPham();
+        getKhachHang();
         getDataIntent();
         getQuan();
         SetDateTime();
@@ -121,17 +128,6 @@ public class HoaDonActivity extends AppCompatActivity {
 
     private void getDataIntent() {
         Intent intent = getIntent();
-        Bundle bundle = intent.getBundleExtra("user");
-        email = bundle.getString("email");
-        ma_kh = bundle.getString("ma_kh");
-        ma_sp = intent.getStringExtra("ma_sp");
-
-        //set edittext & textview
-        name_kh.setText(bundle.getString("ten_kh"));
-        sdt_kh.setText(bundle.getString("sdt"));
-        name_product.setText(intent.getStringExtra("ten_sp"));
-        Picasso.get().load(intent.getStringExtra("image")).into(img_product);
-        gia_sp.setText(intent.getStringExtra("gia_sp") + "VNĐ");
         String note = intent.getStringExtra("ghichu");
         if (!note.trim().isEmpty()) {
             ghichu_hd.setText(intent.getStringExtra("ghichu"));
@@ -396,9 +392,61 @@ public class HoaDonActivity extends AppCompatActivity {
                         });
                         SpinnerPhuong(listPhuong);
                         break;
+                    case MSG_SanPham:
+                        sanpham = new Sanpham();
+                        sanpham = (Sanpham) msg.obj;
+                        setSanpham(sanpham);
+                        break;
+                    case MSG_KhachHang:
+                        khachHang = new KhachHang();
+                        khachHang = (KhachHang) msg.obj;
+                        setKhachHang(khachHang);
+                        break;
                 }
             }
         };
+    }
+
+    private void setSanpham(Sanpham sanpham){
+        ma_sp = String.valueOf(sanpham.getMa_sp());
+        Picasso.get().load(sanpham.getImage()).into(img_product);
+        name_product.setText(sanpham.getTen_sp());
+        gia_sp.setText(String.valueOf(sanpham.getGia_sp()));
+    }
+
+    private void setKhachHang(KhachHang khachHang){
+        ma_kh = String.valueOf(khachHang.getMa_kh());
+        email = khachHang.getEmail();
+        name_kh.setText(khachHang.getTen_kh());
+        sdt_kh.setText(khachHang.getSdt());
+    }
+
+    private void getSanPham(){
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                sanpham = (Sanpham) getIntent().getSerializableExtra("sanpham");
+                Message msg = new Message();
+                msg.what = MSG_SanPham;
+                msg.obj = sanpham;
+                handler.sendMessage(msg);
+            }
+        });
+        thread.start();
+    }
+
+    private void getKhachHang(){
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                khachHang = (KhachHang) getIntent().getSerializableExtra("khachhang");
+                Message msg = new Message();
+                msg.what = MSG_KhachHang;
+                msg.obj = khachHang;
+                handler.sendMessage(msg);
+            }
+        });
+        thread.start();
     }
 
     private void getQuan() {

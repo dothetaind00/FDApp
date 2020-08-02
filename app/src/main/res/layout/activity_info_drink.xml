@@ -71,6 +71,7 @@
                     android:layout_height="wrap_content"
                     android:padding="5dp"
                     android:text="Detail Product"
+                    android:justificationMode="inter_word"
                     android:textColor="#000"
                     android:textSize="16sp" />
 

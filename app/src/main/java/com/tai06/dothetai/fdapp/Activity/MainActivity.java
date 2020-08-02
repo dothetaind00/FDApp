@@ -60,7 +60,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Handler handler;
     private KhachHang khachHang;
     private TextView ten_kh,email_kh;
-    private Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,10 +103,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Fragment fragment = new TrangchuFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable("khachhang",khachHang);
-        bundle.putString("ma_kh", String.valueOf(khachHang.getMa_kh()));
-        bundle.putString("email",khachHang.getEmail());
-        bundle.putString("ten_kh",khachHang.getTen_kh());
-        bundle.putString("sdt",khachHang.getSdt());
         fragment.setArguments(bundle);
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,fragment).commit();
         navigationView.setCheckedItem(R.id.menu_home);
@@ -162,10 +157,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void showFragment(Fragment fragment){
         Bundle bundle = new Bundle();
         bundle.putSerializable("khachhang",khachHang);
-        bundle.putString("ma_kh", String.valueOf(khachHang.getMa_kh()));
-        bundle.putString("email",khachHang.getEmail());
-        bundle.putString("ten_kh",khachHang.getTen_kh());
-        bundle.putString("sdt",khachHang.getSdt());
         fragment.setArguments(bundle);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -186,7 +177,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (item.getItemId()){
             case R.id.search_bar:
                 Intent intent = new Intent(MainActivity.this,SearchViewActivity.class);
-                intent.putExtra("user",khachHang);
+                intent.putExtra("khachhang",khachHang);
                 startActivity(intent);
                 return true;
             default:

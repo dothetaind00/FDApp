@@ -51,6 +51,7 @@ import java.util.Map;
 public class SearchViewActivity extends AppCompatActivity {
 
     public static final int MSG_SEARCH=1;
+    public static final int MSG_KhachHang=2;
 
     private Toolbar toolbar;
     private SearchviewAdapter searchviewAdapter;
@@ -61,7 +62,6 @@ public class SearchViewActivity extends AppCompatActivity {
     private ImageButton clear_text;
     private TextView empty_search;
     private ProgressDialog progressDialog;
-    private String ma_kh,email,ten_kh,sdt;
     private KhachHang khachHang;
 
     @Override
@@ -70,6 +70,8 @@ public class SearchViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search_view);
         init();
         initHandler();
+        getKhachHang();
+        Back_Arrow();
         Click_event();
     }
 
@@ -79,25 +81,11 @@ public class SearchViewActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        Back_Arrow();
 
         text_search = findViewById(R.id.text_search);
         clear_text = findViewById(R.id.clear_text);
         recycle_search = findViewById(R.id.recycle_search);
         empty_search = findViewById(R.id.empty_search);
-
-        khachHang = (KhachHang) getIntent().getSerializableExtra("user");
-        ma_kh = String.valueOf(khachHang.getMa_kh());
-        email = khachHang.getEmail();
-        ten_kh = khachHang.getTen_kh();
-        sdt = khachHang.getSdt();
-
-//        Intent intent = getIntent();
-//        Bundle bundle = intent.getBundleExtra("user");
-//        ma_kh = bundle.getString("ma_kh");
-//        email = bundle.getString("email");
-//        ten_kh = bundle.getString("ten_kh");
-//        sdt = bundle.getString("sdt");
     }
 
     private void Click_event(){
@@ -163,9 +151,27 @@ public class SearchViewActivity extends AppCompatActivity {
                         arrSanpham.addAll((Collection<? extends Sanpham>) msg.obj);
                         setSearchAdapter(arrSanpham);
                         break;
+                    case MSG_KhachHang:
+                        khachHang = new KhachHang();
+                        khachHang = (KhachHang) msg.obj;
+                        break;
                 }
             }
         };
+    }
+
+    private void getKhachHang(){
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                khachHang = (KhachHang) getIntent().getSerializableExtra("khachhang");
+                Message msg = new Message();
+                msg.what = MSG_KhachHang;
+                msg.obj = khachHang;
+                handler.sendMessage(msg);
+            }
+        });
+        thread.start();
     }
 
     private void setSearchAdapter(List<Sanpham> list){
@@ -279,32 +285,22 @@ public class SearchViewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SearchViewActivity.this,MainActivity.class);
-                intent.putExtra("email",email);
+                intent.putExtra("email",khachHang.getEmail());
                 startActivity(intent);
             }
         });
     }
 
-    private void Databundle(Bundle bundle){
-        bundle.putString("ma_kh",ma_kh);
-        bundle.putString("email",email);
-        bundle.putString("ten_kh",ten_kh);
-        bundle.putString("sdt",sdt);
-    }
 
     public void showProduct(Sanpham sanpham){
         if (sanpham.getMa_lh()== 1 || sanpham.getMa_lh() == 3){
             Intent intent = new Intent(SearchViewActivity.this, InfoFoodActivity.class);
-            Bundle bundle = new Bundle();
-            Databundle(bundle);
-            intent.putExtra("user",bundle);
+            intent.putExtra("khachhang",khachHang);
             intent.putExtra("food",sanpham);
             startActivity(intent);
         }else if (sanpham.getMa_lh()==2){
             Intent intent = new Intent(SearchViewActivity.this, InfoDrinkActivity.class);
-            Bundle bundle = new Bundle();
-            Databundle(bundle);
-            intent.putExtra("user",bundle);
+            intent.putExtra("khachhang",khachHang);
             intent.putExtra("drink",sanpham);
             startActivity(intent);
         }

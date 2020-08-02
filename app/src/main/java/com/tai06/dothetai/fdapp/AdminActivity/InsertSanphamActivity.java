@@ -54,7 +54,7 @@ public class InsertSanphamActivity extends AppCompatActivity {
     private Button btn_insertsp;
     private ImageView img_product;
     private Toolbar toolbar_insertsp;
-    private TextInputEditText name_product,price,mota_sp;
+    private TextInputEditText name_product, price, mota_sp;
     private String ma_lh;
 
     @Override
@@ -66,7 +66,7 @@ public class InsertSanphamActivity extends AppCompatActivity {
         Click_event();
     }
 
-    private void init(){
+    private void init() {
         img_product = findViewById(R.id.img_product);
         sp_category = findViewById(R.id.sp_category);
         name_product = findViewById(R.id.name_product);
@@ -81,7 +81,7 @@ public class InsertSanphamActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    private void Click_event(){
+    private void Click_event() {
         img_product.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,28 +92,41 @@ public class InsertSanphamActivity extends AppCompatActivity {
         btn_insertsp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                check_sanpham();
+                String txt = btn_insertsp.getText().toString().trim();
+                String text_tensp = name_product.getText().toString().trim();
+                String text_giasp = price.getText().toString().trim();
+                int gia = Integer.parseInt(text_giasp);
+                String text_motasp = mota_sp.getText().toString().trim();
+                if (text_tensp.equals("") || text_giasp.equals("") || text_motasp.equals("")) {
+                    Toast.makeText(InsertSanphamActivity.this, "Vui lòng nhập thông tin", Toast.LENGTH_SHORT).show();
+                } else {
+                    if (gia < 1000) {
+                        Toast.makeText(InsertSanphamActivity.this, "Kiểm tra lại giá sản phẩm", Toast.LENGTH_SHORT).show();
+                    } else if (txt.equals("Thêm sản phẩm")) {
+                        check_sanpham();
+                    }
+                }
             }
         });
     }
 
-    private void eventImage(){
+    private void eventImage() {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select image from gallery"), REQUEST_CODE_IMAGE);
     }
 
-    private void check_sanpham(){
-        do{
-            int codeSP = new RandomCode().randomCode(MIN,MAX);
+    private void check_sanpham() {
+        do {
+            int codeSP = new RandomCode().randomCode(MIN, MAX);
             RequestQueue requestQueue = Volley.newRequestQueue(InsertSanphamActivity.this);
             StringRequest stringRequest = new StringRequest(Request.Method.POST, Link.URL_check_sanpham, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
-                    if (response.trim().equals("success")){
+                    if (response.trim().equals("success")) {
                         check = true;
-                    }else{
+                    } else {
                         postInsertSP(codeSP);
                         check = false;
                     }
@@ -122,28 +135,28 @@ public class InsertSanphamActivity extends AppCompatActivity {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     Toast.makeText(InsertSanphamActivity.this, "Lỗi kết nối!", Toast.LENGTH_SHORT).show();
-                    Log.d("AAA","Error" + error.toString());
+                    Log.d("AAA", "Error" + error.toString());
                 }
-            }){
+            }) {
                 @Override
                 protected Map<String, String> getParams() throws AuthFailureError {
                     Map<String, String> param = new HashMap<>();
-                    param.put("ma_sp",String.valueOf(codeSP));
+                    param.put("ma_sp", String.valueOf(codeSP));
                     return param;
                 }
             };
             requestQueue.add(stringRequest);
-        }while (check);
+        } while (check);
     }
 
-    private void postInsertSP(int ma_sp){
+    private void postInsertSP(int ma_sp) {
         RequestQueue requestQueue = Volley.newRequestQueue(InsertSanphamActivity.this);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Link.URL_postInsertSP, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                if (response.trim().equals("success")){
+                if (response.trim().equals("success")) {
                     Toast.makeText(InsertSanphamActivity.this, "Thêm thành công", Toast.LENGTH_SHORT).show();
-                }else{
+                } else {
                     Toast.makeText(InsertSanphamActivity.this, "Vui lòng thử lại", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -151,19 +164,19 @@ public class InsertSanphamActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(InsertSanphamActivity.this, "Lỗi kết nối!", Toast.LENGTH_SHORT).show();
-                Log.d("AAA","Error" + error.toString());
+                Log.d("AAA", "Error" + error.toString());
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> param = new HashMap<>();
-                param.put("ma_sp",String.valueOf(ma_sp));
-                param.put("ma_lh",ma_lh);
-                param.put("ten_sp",name_product.getText().toString());
-                param.put("gia_sp",price.getText().toString().trim());
+                param.put("ma_sp", String.valueOf(ma_sp));
+                param.put("ma_lh", ma_lh);
+                param.put("ten_sp", name_product.getText().toString());
+                param.put("gia_sp", price.getText().toString().trim());
                 String img = imageToString(bitmap);
                 param.put("image", img);
-                param.put("mota_sp",mota_sp.getText().toString().trim());
+                param.put("mota_sp", mota_sp.getText().toString().trim());
                 return param;
             }
         };
@@ -173,18 +186,18 @@ public class InsertSanphamActivity extends AppCompatActivity {
         requestQueue.add(stringRequest);
     }
 
-    private void SpinnerCategory(){
+    private void SpinnerCategory() {
         List<String> list = new ArrayList<>();
-        list.add(0,"Food");
-        list.add(1,"Drink");
-        list.add(2,"Combo");
-        ArrayAdapter arrayAdapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item,list);
+        list.add(0, "Food");
+        list.add(1, "Drink");
+        list.add(2, "Combo");
+        ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, list);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sp_category.setAdapter(arrayAdapter);
         sp_category.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                switch (position){
+                switch (position) {
                     case 0:
                         ma_lh = "1";
                         break;

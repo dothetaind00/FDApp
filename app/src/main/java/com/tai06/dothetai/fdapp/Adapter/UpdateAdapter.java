@@ -12,30 +12,31 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 import com.tai06.dothetai.fdapp.Activity.ViewMoreActivity;
+import com.tai06.dothetai.fdapp.AdminActivity.UpdateSanPhamActivity;
 import com.tai06.dothetai.fdapp.OOP.Sanpham;
 import com.tai06.dothetai.fdapp.R;
 
 import java.util.List;
 
-public class ViewMoreAdapter extends RecyclerView.Adapter<ViewMoreAdapter.ViewHolder> {
+public class UpdateAdapter extends RecyclerView.Adapter<UpdateAdapter.ViewHolder> {
 
     private List<Sanpham> mList;
     private Context mContext;
 
-    public ViewMoreAdapter(List<Sanpham> mList, Context mContext) {
+    public UpdateAdapter(List<Sanpham> mList, Context mContext) {
         this.mList = mList;
         this.mContext = mContext;
     }
 
     @NonNull
     @Override
-    public ViewMoreAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public UpdateAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_item_search, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewMoreAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull UpdateAdapter.ViewHolder holder, int position) {
         Sanpham sanpham = mList.get(position);
         Picasso.get().load(sanpham.getImage()).into(holder.img_product);
         holder.name_product.setText(sanpham.getTen_sp());
@@ -59,7 +60,7 @@ public class ViewMoreAdapter extends RecyclerView.Adapter<ViewMoreAdapter.ViewHo
                 @Override
                 public void onClick(View v) {
                     Sanpham sanpham = mList.get(getAdapterPosition());
-                    ((ViewMoreActivity)mContext).showSanpham(sanpham);
+                    ((UpdateSanPhamActivity)mContext).showSanpham(sanpham);
                 }
             });
         }

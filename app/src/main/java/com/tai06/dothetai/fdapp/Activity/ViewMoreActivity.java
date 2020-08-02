@@ -167,7 +167,7 @@ public class ViewMoreActivity extends AppCompatActivity {
     }
 
 
-    public void showProduct(Sanpham sanpham){
+    public void showSanpham(Sanpham sanpham){
         if (sanpham.getMa_lh()== 1 || sanpham.getMa_lh() == 3){
             Intent intent = new Intent(ViewMoreActivity.this, InfoFoodActivity.class);
             intent.putExtra("khachhang",khachHang);

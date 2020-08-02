@@ -32,6 +32,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.navigation.NavigationView;
 import com.tai06.dothetai.fdapp.AdminActivity.InsertSanphamActivity;
+import com.tai06.dothetai.fdapp.AdminActivity.UpdateSanPhamActivity;
 import com.tai06.dothetai.fdapp.Fragment.DonhangFragment;
 import com.tai06.dothetai.fdapp.Fragment.TrangchuFragment;
 import com.tai06.dothetai.fdapp.LoginSignup.ChangepswActivity;
@@ -150,6 +151,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(new Intent(MainActivity.this, InsertSanphamActivity.class));
                 break;
             case R.id.update_sanpham:
+                startActivity(new Intent(MainActivity.this, UpdateSanPhamActivity.class));
                 break;
         }
     }

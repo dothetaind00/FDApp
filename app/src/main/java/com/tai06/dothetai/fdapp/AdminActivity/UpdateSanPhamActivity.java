@@ -184,4 +184,12 @@ public class UpdateSanPhamActivity extends AppCompatActivity {
         onBackPressed();
         return true;
     }
+
+    @Override
+    protected void onResume() {
+        getSanpham(Link.URL_getFood,MSG_Food);
+        getSanpham(Link.URL_getDrink,MSG_Drink);
+        getSanpham(Link.URL_getCombo,MSG_Combo);
+        super.onResume();
+    }
 }

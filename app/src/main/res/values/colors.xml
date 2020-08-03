@@ -9,4 +9,5 @@
     <color name="cam">#FF7300</color>
     <color name="bac">#C3C1BF</color>
     <color name="tab_indicator_gray">#c0c0c0</color>
+    <color name="color_toolbar">#F4F3F3</color>
 </resources>

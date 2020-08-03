@@ -44,7 +44,7 @@ public class UpdateActivity extends AppCompatActivity {
     private Toolbar toolbar_updatesp;
     private TextInputEditText name_product,price,mota_sp;
     private Sanpham sanpham;
-    private String ma_lh,ma_sp;
+    private String ma_lh,ma_sp,image;
     private boolean check = false;
 
     @Override
@@ -71,6 +71,7 @@ public class UpdateActivity extends AppCompatActivity {
         sanpham = (Sanpham) getIntent().getSerializableExtra("sanpham");
         ma_lh = String.valueOf(sanpham.getMa_lh());
         ma_sp = String.valueOf(sanpham.getMa_sp());
+        image = sanpham.getImage();
         Picasso.get().load(sanpham.getImage()).into(img_product);
         name_product.setText(sanpham.getTen_sp());
         price.setText(String.valueOf(sanpham.getGia_sp()));
@@ -128,9 +129,10 @@ public class UpdateActivity extends AppCompatActivity {
                     if (gia<1000){
                         Toast.makeText(UpdateActivity.this, "Kiểm tra lại giá sản phẩm", Toast.LENGTH_SHORT).show();
                     }else {
-                        String text_btn = btn_updatesp.getText().toString().trim();
-                        if (text_btn.equals("Cập nhật")){
-                            postUpdateSP();
+                        if (check == true){
+                            postUpdateSP(Link.URL_postUpdateSP,imageToString(bitmap));
+                        }else{
+                            postUpdateSP(Link.URL_postUpdateSP1,image);
                         }
                     }
                 }
@@ -140,7 +142,7 @@ public class UpdateActivity extends AppCompatActivity {
 
     private void postUpdateSP(String url,String img){
         RequestQueue requestQueue = Volley.newRequestQueue(UpdateActivity.this);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Link.URL_postUpdateSP, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 if (response.trim().equals("success")){
@@ -162,7 +164,6 @@ public class UpdateActivity extends AppCompatActivity {
                 param.put("ma_lh",ma_lh);
                 param.put("ten_sp",name_product.getText().toString().trim());
                 param.put("gia_sp",price.getText().toString().trim());
-                String img = imageToString(bitmap);
                 param.put("image", img);
                 param.put("mota_sp",mota_sp.getText().toString().trim());
                 return param;

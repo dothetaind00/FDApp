@@ -4,13 +4,13 @@
     android:orientation="vertical"
     android:layout_marginTop="16dp"
     android:layout_marginLeft="16dp"
-    android:layout_width="180dp"
-    android:layout_height="250dp">
+    android:layout_width="170dp"
+    android:layout_height="220dp">
     <androidx.cardview.widget.CardView
         android:id="@+id/one"
         app:cardCornerRadius="16dp"
         android:layout_width="match_parent"
-        android:layout_height="180dp">
+        android:layout_height="170dp">
         <ImageView
             android:id="@+id/img_product"
             android:scaleType="centerCrop"
@@ -29,21 +29,23 @@
         <TextView
             android:id="@+id/name_product"
             android:text="Name"
+            android:textStyle="bold"
             android:textColor="#000"
             android:layout_weight="1"
             android:textSize="16sp"
             android:layout_gravity="center_horizontal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"/>
+
         <TextView
             android:id="@+id/price"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
             android:text="0VND"
             android:textAlignment="center"
             android:textColor="#000"
-            android:textSize="16sp"
-            android:layout_weight="1"
-            android:layout_gravity="center_horizontal"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"/>
+            android:textSize="16sp" />
     </LinearLayout>
 </RelativeLayout>

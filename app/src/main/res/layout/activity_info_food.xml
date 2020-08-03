@@ -8,6 +8,7 @@
     tools:context=".Activity.InfoFoodActivity">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_info"
+        android:background="@color/color_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView

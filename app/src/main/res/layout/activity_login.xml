@@ -73,7 +73,7 @@
                 android:id="@+id/btn_login"
                 android:text="Đăng nhập"
                 android:textStyle="bold"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:textColor="#fff"
                 android:textAllCaps="false"
                 android:layout_below="@id/forget_pass"

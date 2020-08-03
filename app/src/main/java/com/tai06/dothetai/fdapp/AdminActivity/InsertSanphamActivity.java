@@ -49,6 +49,7 @@ public class InsertSanphamActivity extends AppCompatActivity {
     public static final int MAX = 999999;
     public static final int MIN = 1;
     private boolean check;
+    private boolean selected = false;
     private Bitmap bitmap;
     private Spinner sp_category;
     private Button btn_insertsp;
@@ -85,6 +86,7 @@ public class InsertSanphamActivity extends AppCompatActivity {
         img_product.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                selected = true;
                 eventImage();
             }
         });
@@ -92,7 +94,7 @@ public class InsertSanphamActivity extends AppCompatActivity {
         btn_insertsp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String txt = btn_insertsp.getText().toString().trim();
+                String text_btn = btn_insertsp.getText().toString().trim();
                 String text_tensp = name_product.getText().toString().trim();
                 String text_giasp = price.getText().toString().trim();
                 int gia = Integer.parseInt(text_giasp);
@@ -102,8 +104,19 @@ public class InsertSanphamActivity extends AppCompatActivity {
                 } else {
                     if (gia < 1000) {
                         Toast.makeText(InsertSanphamActivity.this, "Kiểm tra lại giá sản phẩm", Toast.LENGTH_SHORT).show();
-                    } else if (txt.equals("Thêm sản phẩm")) {
-                        check_sanpham();
+                    } else{
+                        if (text_btn.equals("Thêm sản phẩm mới")){
+                            if (selected == true){
+                                check_sanpham();
+                            }else{
+                                Toast.makeText(InsertSanphamActivity.this, "Vui lòng chọn hình ảnh", Toast.LENGTH_SHORT).show();
+                            }
+                        }else{
+                            name_product.getText().clear();
+                            price.getText().clear();
+                            mota_sp.getText().clear();
+                            btn_insertsp.setText("Thêm sản phẩm mới");
+                        }
                     }
                 }
             }
@@ -156,6 +169,7 @@ public class InsertSanphamActivity extends AppCompatActivity {
             public void onResponse(String response) {
                 if (response.trim().equals("success")) {
                     Toast.makeText(InsertSanphamActivity.this, "Thêm thành công", Toast.LENGTH_SHORT).show();
+                    btn_insertsp.setText("Tiếp tục");
                 } else {
                     Toast.makeText(InsertSanphamActivity.this, "Vui lòng thử lại", Toast.LENGTH_SHORT).show();
                 }

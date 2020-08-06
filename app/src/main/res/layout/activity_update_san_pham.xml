@@ -97,6 +97,7 @@
                 </TableRow>
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycle_combo"
+                    android:paddingBottom="16dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
             </TableLayout>

@@ -4,16 +4,20 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -276,7 +280,8 @@ public class HoaDonActivity extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 if (response.trim().equals("success")) {
-                    Toast.makeText(HoaDonActivity.this, "Đặt thành công", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(HoaDonActivity.this, "Đặt thành công", Toast.LENGTH_SHORT).show();
+                    showSuccessDialog();
                     thanhtoan.setText("Quay lại trang chủ");
                 } else {
                     Toast.makeText(HoaDonActivity.this, "Vui lòng thử lại", Toast.LENGTH_SHORT).show();
@@ -606,6 +611,31 @@ public class HoaDonActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void showSuccessDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this,R.style.AlertDialogTheme);
+        View view= LayoutInflater.from(HoaDonActivity.this).inflate(R.layout.layout_success_dialog,(ConstraintLayout) findViewById(R.id.layoutDialogContainer));
+        builder.setView(view);
+        ((TextView) view.findViewById(R.id.textTitle)).setText(getResources().getString(R.string.success_title));
+        ((TextView) view.findViewById(R.id.textMessage)).setText(getResources().getString(R.string.success_Message));
+        ((ImageView) view.findViewById(R.id.imageIcon)).setImageResource(R.drawable.ic_success);
+        ((Button) view.findViewById(R.id.buttonNo)).setText(getResources().getString(R.string.btnNo));
+        ((Button) view.findViewById(R.id.buttonYes)).setText(getResources().getString(R.string.btnYes));
+
+        AlertDialog alertDialog = builder.create();
+        view.findViewById(R.id.buttonNo).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+
+        if (alertDialog.getWindow() != null){
+            alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+        }
+
+        alertDialog.show();
     }
 
     @Override

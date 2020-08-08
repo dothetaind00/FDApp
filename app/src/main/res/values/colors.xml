@@ -10,4 +10,13 @@
     <color name="bac">#C3C1BF</color>
     <color name="tab_indicator_gray">#c0c0c0</color>
     <color name="color_toolbar">#F4F3F3</color>
+
+<!--    alert dialog-->
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorSuccess">#4BB543</color>
+    <color name="colorWarning">#FFCC00</color>
+    <color name="colorNeutral">#434343</color>
+    <color name="colorError">#CC0000</color>
+    <color name="colorTextPrimary">#212121</color>
+
 </resources>

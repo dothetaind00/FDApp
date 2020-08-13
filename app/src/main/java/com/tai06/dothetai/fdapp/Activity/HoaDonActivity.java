@@ -19,6 +19,7 @@ import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -45,6 +46,7 @@ import com.tai06.dothetai.fdapp.OOP.Phuong;
 import com.tai06.dothetai.fdapp.OOP.Quan;
 import com.tai06.dothetai.fdapp.OOP.Sanpham;
 import com.tai06.dothetai.fdapp.R;
+import com.tai06.dothetai.fdapp.URL.Check;
 import com.tai06.dothetai.fdapp.URL.Link;
 import com.tai06.dothetai.fdapp.URL.RandomCode;
 
@@ -61,7 +63,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 
 public class HoaDonActivity extends AppCompatActivity {
@@ -85,7 +86,7 @@ public class HoaDonActivity extends AppCompatActivity {
     private List<Quan> arrQuan;
     private List<Phuong> arrPhuong;
     private String address, txt_quan, txt_phuong;
-    private String ma_kh, email, ten_kh, sdt, ma_sp,datemy;
+    private String ma_kh, email, ma_sp,datemy,img;
     private boolean check;
     private Sanpham sanpham;
     private KhachHang khachHang;
@@ -148,6 +149,7 @@ public class HoaDonActivity extends AppCompatActivity {
         thanhtoan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                closeKeyboard();
                 String txt_btn = thanhtoan.getText().toString().trim();
                 if (txt_btn.trim().equals("Thanh toán")){
                     check_text();
@@ -163,6 +165,14 @@ public class HoaDonActivity extends AppCompatActivity {
         });
     }
 
+    private void closeKeyboard() {
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
+
     //check text empty in edittext ?
     private void check_text() {
         String ten = name_kh.getText().toString().trim();
@@ -171,7 +181,7 @@ public class HoaDonActivity extends AppCompatActivity {
         if (ten.equals("") || sdt.equals("") || dc.equals("")) {
             Toast.makeText(this, "Vui lòng nhập thông tin", Toast.LENGTH_SHORT).show();
         } else {
-            if (check_sdt()) {
+            if (check_phone()) {
                 check_hoadon();
             }else{
                 Toast.makeText(this, "Kiểm tra lại thông tin", Toast.LENGTH_SHORT).show();
@@ -180,17 +190,9 @@ public class HoaDonActivity extends AppCompatActivity {
     }
 
     //check sdt_kh
-    private boolean check_sdt() {
-        String sdt = sdt_kh.getText().toString().trim();
-        Matcher matcher = Link.PATTERN_PHONE.matcher(sdt);
-        if (!matcher.matches()) {
-            inputlayout_sdt.setErrorEnabled(true);
-            inputlayout_sdt.setError("Số điện thoại không hợp lệ");
-            return false;
-        } else {
-            inputlayout_sdt.setErrorEnabled(false);
-            return true;
-        }
+    private boolean check_phone(){
+        String sdt = "Kiểm tra lại số điện thoại";
+        return Check.checkin(inputlayout_sdt,sdt_kh,Link.PATTERN_PHONE,sdt);
     }
 
     // random mã hóa đơn check trên db nếu tồn tại thì random lại và ngược lại thêm vào hóa đơn và cthd
@@ -415,8 +417,9 @@ public class HoaDonActivity extends AppCompatActivity {
     private void setSanpham(Sanpham sanpham){
         ma_sp = String.valueOf(sanpham.getMa_sp());
         Picasso.get().load(sanpham.getImage()).into(img_product);
+        img = sanpham.getImage();
         name_product.setText(sanpham.getTen_sp());
-        gia_sp.setText(String.valueOf(sanpham.getGia_sp()));
+        gia_sp.setText(String.valueOf(sanpham.getGia_sp())+"VNĐ");
     }
 
     private void setKhachHang(KhachHang khachHang){
@@ -615,6 +618,7 @@ public class HoaDonActivity extends AppCompatActivity {
 
     private void showSuccessDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this,R.style.AlertDialogTheme);
+        builder.setCancelable(false);
         View view= LayoutInflater.from(HoaDonActivity.this).inflate(R.layout.layout_success_dialog,(ConstraintLayout) findViewById(R.id.layoutDialogContainer));
         builder.setView(view);
         ((TextView) view.findViewById(R.id.textTitle)).setText(getResources().getString(R.string.success_title));
@@ -628,6 +632,59 @@ public class HoaDonActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 alertDialog.dismiss();
+            }
+        });
+
+        String ten = name_kh.getText().toString().trim();
+        String dc = diachi.getText().toString().trim() + address;
+        String number = sdt_kh.getText().toString().trim();
+        String sl = soluong_sp.getText().toString().trim();
+        String gia = gia_sp.getText().toString().trim();
+        Intent intent = getIntent();
+        String note = intent.getStringExtra("ghichu");
+
+        view.findViewById(R.id.buttonYes).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar calendar = Calendar.getInstance();
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+                String date_time = simpleDateFormat.format(calendar.getTime());
+
+                //fomat date cho text datetime sang dạng yyyy/MM/dd HH:mm insert phpmyadmin
+                String select_time = datetime.getText().toString().trim();
+                datemy = new RandomCode().getStringForDate(select_time);
+
+                alertDialog.dismiss();
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(HoaDonActivity.this,R.style.AlertDialogTheme);
+                builder1.setCancelable(false);
+                View view1= LayoutInflater.from(HoaDonActivity.this).inflate(R.layout.layout_view_cthd,(ConstraintLayout) findViewById(R.id.layoutDialogCthd));
+                builder1.setView(view1);
+                ((TextView) view1.findViewById(R.id.textTitle)).setText(getResources().getString(R.string.success_title));
+                ((ImageView) view1.findViewById(R.id.imageIcon)).setImageResource(R.drawable.ic_success);
+                ((TextView) view1.findViewById(R.id.ten_kh)).setText(ten);
+                ((TextView) view1.findViewById(R.id.diachii)).setText(dc);
+                ((TextView) view1.findViewById(R.id.sdt)).setText(number);
+                ImageView anh = ((ImageView) view1.findViewById(R.id.image));
+                Picasso.get().load(img).into(anh);
+                ((TextView) view1.findViewById(R.id.sl_sp)).setText(sl);
+                ((TextView) view1.findViewById(R.id.gia_sp)).setText(gia);
+                ((TextView) view1.findViewById(R.id.ngaydat_hd)).setText(date_time);
+                ((TextView) view1.findViewById(R.id.ngaygiao_hd)).setText(datemy);
+                ((TextView) view1.findViewById(R.id.ghichu_hd)).setText(note);
+                ((TextView) view1.findViewById(R.id.trangthai)).setText("Đang đóng gói");
+                ((TextView) view1.findViewById(R.id.thanhtien)).setText(String.valueOf(tongtien)+"VNĐ");
+                ((Button) view1.findViewById(R.id.buttonYes)).setText(getResources().getString(R.string.btnNo));
+                AlertDialog alertDialog1 = builder1.create();
+                if (alertDialog1.getWindow() != null){
+                    alertDialog1.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+                }
+                view1.findViewById(R.id.buttonYes).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        alertDialog1.dismiss();
+                    }
+                });
+                alertDialog1.show();
             }
         });
 

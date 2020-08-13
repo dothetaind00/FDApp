@@ -22,7 +22,6 @@
         <activity android:name=".FogotPassword.ForgotpswActivity" />
         <activity android:name=".Activity.ViewMoreActivity" />
         <activity android:name=".LoginSignup.ChangepswActivity" />
-        <activity android:name=".LoginSignup.SignupActivity" />
         <activity android:name=".LoginSignup.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -27,6 +27,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.tai06.dothetai.fdapp.LoginSignup.LoginActivity;
 import com.tai06.dothetai.fdapp.R;
 import com.tai06.dothetai.fdapp.SendCode.SendGmail;
+import com.tai06.dothetai.fdapp.URL.Check;
 import com.tai06.dothetai.fdapp.URL.Link;
 import com.tai06.dothetai.fdapp.URL.RandomCode;
 
@@ -100,17 +101,9 @@ public class ForgotpswActivity extends AppCompatActivity {
         });
     }
 
-    private boolean check_email() {
-        String email = email_forgetpsw.getText().toString().trim();
-        Matcher matcher = Link.PATTERN_EMAIL.matcher(email);
-        if (!matcher.matches()) {
-            inputlayout_forgetpsw.setErrorEnabled(true);
-            inputlayout_forgetpsw.setError("Kiểm tra lại email");
-            return false;
-        } else {
-            inputlayout_forgetpsw.setErrorEnabled(false);
-            return true;
-        }
+    private boolean check_email(){
+        String email = "Kiểm tra lại email";
+        return Check.checkin(inputlayout_forgetpsw,email_forgetpsw,Link.PATTERN_EMAIL,email);
     }
 
     private void button() {
@@ -145,7 +138,7 @@ public class ForgotpswActivity extends AppCompatActivity {
                     public void onResponse(String response) {
                         if (response.trim().equals("success")) {
                             int codeAccept = new RandomCode().randomCode(MIN, MAX);
-                            new SendGmail().send("Verification: " + String.valueOf(codeAccept), email);
+                            new SendGmail().send("Verification Account: " + String.valueOf(codeAccept), email);
                             Intent intent = new Intent(ForgotpswActivity.this, CheckCodeActivity.class);
                             intent.putExtra("codeAccept", codeAccept);
                             intent.putExtra("email", email);

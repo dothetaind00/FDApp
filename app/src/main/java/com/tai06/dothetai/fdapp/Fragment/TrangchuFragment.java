@@ -286,11 +286,4 @@ public class TrangchuFragment extends Fragment {
         startActivity(intent);
     }
 
-    @Override
-    public void onResume() {
-        getSanpham(MSG_RECYL_Food, Link.URL_getFood);
-        getSanpham(MSG_RECYL_Drink, Link.URL_getDrink);
-        getSanpham(MSG_RECYL_Combo, Link.URL_getCombo);
-        super.onResume();
-    }
 }

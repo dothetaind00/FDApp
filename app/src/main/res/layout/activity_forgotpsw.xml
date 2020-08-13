@@ -20,6 +20,7 @@
             android:id="@+id/inputlayout_forgetpsw"
             android:layout_width="match_parent"
             android:layout_margin="16dp"
+            app:errorTextAppearance="@style/error_appearance"
             app:hintEnabled="false"
             app:errorEnabled="false"
             android:layout_height="wrap_content">

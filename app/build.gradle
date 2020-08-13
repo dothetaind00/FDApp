@@ -47,4 +47,5 @@ dependencies {
     implementation files('libs/mail.jar')
     //load image to server
     compile 'net.gotev:uploadservice:2.1'
+
 }

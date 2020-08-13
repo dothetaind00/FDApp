@@ -57,7 +57,7 @@ public class CheckCodeActivity extends AppCompatActivity {
                         startActivity(intent);
                         finish();
                     } else {
-                        Toast.makeText(CheckCodeActivity.this, "Kiểm tra lại", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CheckCodeActivity.this, "Kiểm tra lại mã xác nhận", Toast.LENGTH_SHORT).show();
                     }
                 }
             }

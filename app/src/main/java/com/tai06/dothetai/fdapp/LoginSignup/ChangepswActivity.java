@@ -21,6 +21,7 @@ import com.android.volley.toolbox.Volley;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.tai06.dothetai.fdapp.R;
+import com.tai06.dothetai.fdapp.URL.Check;
 import com.tai06.dothetai.fdapp.URL.Link;
 
 import java.util.HashMap;
@@ -113,16 +114,8 @@ public class ChangepswActivity extends AppCompatActivity {
     }
 
     private boolean check_pass(){
-        String psw = password_changepsw.getText().toString().trim();
-        Matcher matcher = Link.PATTERN_PASSWORD.matcher(psw);
-        if (!matcher.matches()){
-            layout2_changepsw.setErrorEnabled(true);
-            layout2_changepsw.setError("Mật khẩu dài hơn 8 kí tự,gồm a-zA-Z0-9,không kí tự đặc biệt");
-            return false;
-        }else{
-            layout2_changepsw.setErrorEnabled(false);
-            return true;
-        }
+        String psw = "Mật khẩu dài hơn 8 kí tự,gồm a-zA-Z0-9,không kí tự đặc biệt";
+        return Check.checkin(layout2_changepsw,password_changepsw,Link.PATTERN_PASSWORD,psw);
     }
 
     private void check_passold(){

@@ -24,6 +24,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.tai06.dothetai.fdapp.Activity.MainActivity;
 import com.tai06.dothetai.fdapp.LoginSignup.LoginActivity;
 import com.tai06.dothetai.fdapp.R;
+import com.tai06.dothetai.fdapp.URL.Check;
 import com.tai06.dothetai.fdapp.URL.Link;
 
 import java.util.HashMap;
@@ -84,7 +85,7 @@ public class NewPasswordActivity extends AppCompatActivity {
         if (psw.equals("") || confirm.equals("")){
             Toast.makeText(this, "Vui lòng nhập mật khẩu", Toast.LENGTH_SHORT).show();
         }else{
-            if (check_passord()){
+            if (check_password()){
                 if (psw.trim().equals(confirm)){
                     UpdatePassword();
                 }else{
@@ -96,17 +97,9 @@ public class NewPasswordActivity extends AppCompatActivity {
         }
     }
 
-    private boolean check_passord(){
-        String pass = password_newpsw.getText().toString().trim();
-        Matcher matcher = Link.PATTERN_PASSWORD.matcher(pass);
-        if (!matcher.matches()){
-            layout2_newpsw.setErrorEnabled(true);
-            layout2_newpsw.setError("Mật khẩu dài hơn 8 kí tự, a-z0-9");
-            return false;
-        }else{
-            layout2_newpsw.setErrorEnabled(false);
-            return true;
-        }
+    private boolean check_password(){
+        String psw = "Mật khẩu dài hơn 8 kí tự,gồm a-zA-Z0-9,không kí tự đặc biệt";
+        return Check.checkin(layout2_newpsw,password_newpsw,Link.PATTERN_PASSWORD,psw);
     }
 
     private void UpdatePassword(){

@@ -1,8 +1,13 @@
 package com.tai06.dothetai.fdapp.URL;
 
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class RandomCode {
     public int randomCode(int min, int max) {
@@ -27,4 +32,5 @@ public class RandomCode {
         String dateString = f.format(d);
         return dateString;
     }
+
 }

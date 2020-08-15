@@ -14,7 +14,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/MyAppTheme">
-        <activity android:name=".AdminActivity.UpdateActivity"></activity>
+        <activity android:name=".Activity.IntroActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".AdminActivity.UpdateActivity" />
         <activity android:name=".AdminActivity.UpdateSanPhamActivity" />
         <activity android:name=".AdminActivity.InsertSanphamActivity" />
         <activity android:name=".FogotPassword.NewPasswordActivity" />
@@ -23,11 +30,11 @@
         <activity android:name=".Activity.ViewMoreActivity" />
         <activity android:name=".LoginSignup.ChangepswActivity" />
         <activity android:name=".LoginSignup.LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
         <activity android:name=".Activity.HoaDonActivity" />
         <activity android:name=".Activity.InfoDrinkActivity" />

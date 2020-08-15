@@ -17,7 +17,7 @@
         android:layout_centerInParent="true"
         android:layout_marginLeft="32dp"
         android:layout_marginRight="32dp"
-        android:paddingTop="32dp"
+        android:paddingTop="28dp"
         android:paddingBottom="32dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

@@ -54,7 +54,6 @@ public class LoginActivity extends AppCompatActivity {
     private String email, pass;
     private LinearLayout bottom_sheet_login, bottom_sheet_signup;
     private BottomSheetBehavior bottomSheetBehavior, bottomSheetBehavior1;
-    boolean doubleBackToExitPressedOnce = false;
 
     private TextInputLayout inputlayout1, inputlayout2, inputlayout5;
     private TextInputEditText email_signup, password_signup, confirm_signup, name_signup, sdt_signup;
@@ -373,17 +372,19 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (doubleBackToExitPressedOnce) {
-            if (bottomSheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED || bottomSheetBehavior1.getState() != BottomSheetBehavior.STATE_EXPANDED) {
-                super.onBackPressed();
-                return;
-            }
+        if (bottomSheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED && bottomSheetBehavior1.getState() != BottomSheetBehavior.STATE_EXPANDED) {
+            super.onBackPressed();
+            Intent startMain = new Intent(Intent.ACTION_MAIN);
+            startMain.addCategory(Intent.CATEGORY_HOME);
+            startActivity(startMain);
+            finish();
         } else {
             if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED || bottomSheetBehavior1.getState() == BottomSheetBehavior.STATE_EXPANDED) {
                 bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
                 bottomSheetBehavior1.setState(BottomSheetBehavior.STATE_COLLAPSED);
             }
         }
+
     }
 
 }

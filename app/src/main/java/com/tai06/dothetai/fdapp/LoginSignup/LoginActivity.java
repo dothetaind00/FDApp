@@ -6,6 +6,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -60,11 +62,18 @@ public class LoginActivity extends AppCompatActivity {
     private TextView login_signup;
     private String emaill, passwordd, confirm, name, sdt;
 
+    private SharedPreferences sp;
+    private SharedPreferences.Editor editor;
+    private Boolean keep = true;
+    private Boolean log;
+    private Boolean logg;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         init();
+        setInfoLogin();
         Click_event_login();
         Click_event_signup();
     }
@@ -95,6 +104,32 @@ public class LoginActivity extends AppCompatActivity {
         inputlayout1 = findViewById(R.id.inputlayout1);
         inputlayout2 = findViewById(R.id.inputlayout2);
         inputlayout5 = findViewById(R.id.inputlayout5);
+
+        sp = getSharedPreferences("login", MODE_PRIVATE);
+        editor = sp.edit();
+
+        if (sp.getBoolean("log",false) == false){
+            Intent i = getIntent();
+            log = i.getBooleanExtra("logged", false);
+            editor.putBoolean("log",log).apply();
+            logg = sp.getBoolean("log",false);
+        }else if (sp.getBoolean("log",false) == true){
+            logg = sp.getBoolean("log",false);
+        }
+
+        if (logg == false){
+            if (sp.getBoolean("logged", false)) {
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                String e = sp.getString("email", "");
+                intent.putExtra("email", e);
+                startActivity(intent);
+            }
+        }
+    }
+
+    private void setInfoLogin() {
+        email_login.setText(sp.getString("email", ""));
+        sp.getBoolean("logged",false);
     }
 
     private void getText() {
@@ -176,6 +211,9 @@ public class LoginActivity extends AppCompatActivity {
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             intent.putExtra("email", email_login.getText().toString().trim());
                             startActivity(intent);
+                            editor.putString("email", email_login.getText().toString().trim()).apply();
+                            editor.putBoolean("logged", true).apply();
+                            editor.putBoolean("log",false).apply();
                         } else {
                             Toast.makeText(LoginActivity.this, "Email hoặc mật khẩu sai!", Toast.LENGTH_SHORT).show();
                         }

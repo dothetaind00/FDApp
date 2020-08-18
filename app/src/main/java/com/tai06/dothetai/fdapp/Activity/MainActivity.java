@@ -142,7 +142,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(intent1);
                 break;
             case R.id.menu_dangxuat:
-                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+//                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                Intent i = new Intent(MainActivity.this,LoginActivity.class);
+                i.putExtra("logged",true);
+                startActivity(i);
                 break;
             case R.id.insert_sanpham:
                 startActivity(new Intent(MainActivity.this, InsertSanphamActivity.class));
@@ -247,12 +250,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onBackPressed() {
         if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             mDrawerLayout.closeDrawer(GravityCompat.START);
-        }
-        if (!back_home) { // nếu view hiện tại không phải là homefragment
-            displayView(R.id.menu_home); // sẽ hiển thị view home fragment
-        } else {
-            moveTaskToBack(true); // nếu là view home fragment ,sẽ thoát khỏi app
+        }else{
+            if (!back_home) { // nếu view hiện tại không phải là homefragment
+                displayView(R.id.menu_home); // sẽ hiển thị view home fragment
+            } else {
+                moveTaskToBack(true); // nếu là view home fragment ,sẽ thoát khỏi app
 //            super.onBackPressed();
+            }
         }
     }
 }

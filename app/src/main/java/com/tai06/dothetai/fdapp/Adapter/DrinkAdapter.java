@@ -37,7 +37,7 @@ public class DrinkAdapter extends RecyclerView.Adapter<DrinkAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull DrinkAdapter.ViewHolder holder, int position) {
         Sanpham sanpham = mList.get(position);
-        Picasso.get().load(sanpham.getImage()).into(holder.img_product);
+        Picasso.get().load(sanpham.getImage()).placeholder(R.drawable.ic_circle).into(holder.img_product);
         holder.name_product.setText(sanpham.getTen_sp());
         holder.price.setText(String.valueOf(sanpham.getGia_sp())+"VNĐ");
     }

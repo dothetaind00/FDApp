@@ -73,6 +73,7 @@ public class TrangchuFragment extends Fragment {
     private List<SlideImage> arrSlide;
     private SlideImageAdapter slideImageAdapter;
 
+
     public TrangchuFragment() {
     }
 
@@ -145,6 +146,7 @@ public class TrangchuFragment extends Fragment {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 1,GridLayoutManager.HORIZONTAL,false);
         recycle_food.setLayoutManager(gridLayoutManager);
         recycle_food.setAdapter(foodAdapter);
+        recycle_food.setNestedScrollingEnabled(true);
         recycle_food.setHasFixedSize(true);
         foodAdapter.notifyDataSetChanged();
     }
@@ -154,6 +156,7 @@ public class TrangchuFragment extends Fragment {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2,GridLayoutManager.HORIZONTAL,false);
         recycle_drink.setLayoutManager(gridLayoutManager);
         recycle_drink.setAdapter(drinkAdapter);
+        recycle_food.setNestedScrollingEnabled(true);
         recycle_drink.setHasFixedSize(true);
         drinkAdapter.notifyDataSetChanged();
     }

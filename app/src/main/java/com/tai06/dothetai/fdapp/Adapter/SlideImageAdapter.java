@@ -33,14 +33,15 @@ public class SlideImageAdapter extends PagerAdapter {
 
     @Override
     public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
-        return view == object;
+        return view.equals(object); // view == object
     }
 
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
-        LayoutInflater inflater = (LayoutInflater) mFrag.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.slide_item, container, false);
+//        LayoutInflater inflater = (LayoutInflater) mFrag.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//        View view = inflater.inflate(R.layout.slide_item, container, false);
+        View view = LayoutInflater.from(mFrag.getContext()).inflate(R.layout.slide_item, container, false);
         ImageView imageView = view.findViewById(R.id.img_item_slide);
         Picasso.get().load(mList.get(position).getImage()).into(imageView);
         container.addView(view);

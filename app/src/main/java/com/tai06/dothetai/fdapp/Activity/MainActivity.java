@@ -43,6 +43,7 @@ import com.tai06.dothetai.fdapp.URL.Link;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -158,7 +159,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void showFragment(Fragment fragment) {
         Bundle bundle = new Bundle();
-        bundle.putSerializable("khachhang", khachHang);
+        bundle.putSerializable("khachhang",khachHang);
         fragment.setArguments(bundle);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

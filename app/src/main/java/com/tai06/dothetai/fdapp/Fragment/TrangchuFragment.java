@@ -214,7 +214,6 @@ public class TrangchuFragment extends Fragment {
         thread.start();
     }
 
-
     private void getKhachHang(){
         Thread thread = new Thread(new Runnable() {
             @Override
@@ -238,6 +237,9 @@ public class TrangchuFragment extends Fragment {
 
         slideImageAdapter = new SlideImageAdapter(arrSlide,TrangchuFragment.this);
         slide_page.setAdapter(slideImageAdapter);
+//        slide_page.setPadding(0,0,150,0);
+//        slide_page.setPageMargin(20);
+//        slideImageAdapter.notifyDataSetChanged();
         tab_slide.setupWithViewPager(slide_page,true);
 
         Timer timer = new Timer();

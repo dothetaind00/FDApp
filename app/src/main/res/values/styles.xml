@@ -30,4 +30,27 @@
         <item name="android:textSize">14sp</item>
     </style>
 
+    <style name="setText_content">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/colorBack</item>
+        <item name="android:layout_marginTop">6dp</item>
+        <item name="android:layout_marginBottom">6dp</item>
+        <item name="android:paddingLeft">6dp</item>
+        <item name="android:paddingRight">6dp</item>
+        <item name="android:layout_gravity">center_vertical</item>
+    </style>
+
+    <style name="setText_title">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/colorBack</item>
+        <item name="android:layout_marginTop">6dp</item>
+        <item name="android:layout_marginBottom">6dp</item>
+    </style>
+
+    <style name="textApperance" parent="TextAppearance.AppCompat.Title">
+        <item name="textAllCaps">false</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/colorBack</item>
+    </style>
 </resources>

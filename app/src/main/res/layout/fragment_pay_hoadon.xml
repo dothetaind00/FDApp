@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".Fragment.PayHoadonFragment">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar_hoadon">
+        android:layout_height="wrap_content">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -24,14 +23,12 @@
                 android:orientation="vertical">
 
                 <TextView
+                    style="@style/setText_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:drawableRight="@drawable/ic_expand_more"
-                    android:text="Nhập thông tin cá nhân"
-                    android:textColor="#000"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:text="Nhập thông tin cá nhân" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -54,11 +51,11 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/inputlayout_sdt"
-                        app:errorEnabled="false"
-                        app:hintEnabled="false"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp">
+                        android:layout_marginTop="16dp"
+                        app:errorEnabled="false"
+                        app:hintEnabled="false">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/sdt_kh"
@@ -77,15 +74,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <TableRow
-                            android:layout_marginTop="16dp"
-                            android:paddingLeft="16dp"
-                            android:paddingBottom="10dp">
+                        <TableRow android:layout_marginTop="16dp">
 
                             <TextView
-                                android:text="Giao hàng trong : TP.Hà Nội"
-                                android:textColor="#000"
-                                android:textSize="16sp"></TextView>
+                                style="@style/setText_content"
+                                android:text="Giao hàng trong : TP.Hà Nội" />
                         </TableRow>
 
                         <TableRow>
@@ -108,13 +101,12 @@
 
                     <TextView
                         android:id="@+id/text_address"
+                        style="@style/setText_content"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="16dp"
                         android:layout_marginTop="16dp"
-                        android:inputType="textNoSuggestions"
-                        android:textColor="#000"
-                        android:textSize="16sp" />
+                        android:inputType="textNoSuggestions" />
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/diachi"
@@ -134,40 +126,35 @@
                         android:layout_height="wrap_content"
                         android:paddingBottom="10dp">
 
-                        <TableRow>
+                        <TableRow android:layout_marginTop="16dp">
 
                             <TextView
+                                style="@style/setText_content"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="16dp"
                                 android:layout_weight="2"
                                 android:inputType="textNoSuggestions"
-                                android:text="Thời gian: "
-                                android:textColor="#000"
-                                android:textSize="16sp" />
+                                android:text="Thời gian: " />
 
                             <TextView
                                 android:id="@+id/datetime"
+                                style="@style/setText_content"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="16dp"
                                 android:layout_weight="5"
                                 android:inputType="textNoSuggestions"
-                                android:text=""
-                                android:textColor="#000"
-                                android:textSize="16sp" />
+                                android:text="" />
 
                             <TextView
                                 android:id="@+id/setdatetime"
+                                style="@style/setText_content"
                                 android:layout_width="0dp"
+
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="16dp"
                                 android:layout_weight="1"
                                 android:text="Sửa"
                                 android:textAlignment="center"
-                                android:textColor="#00f"
-                                android:textSize="16sp"
-                                android:textStyle="bold" />
+                                android:textColor="#00f" />
                         </TableRow>
                     </TableLayout>
                 </LinearLayout>
@@ -182,13 +169,11 @@
                 android:orientation="vertical">
 
                 <TextView
+                    style="@style/setText_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableRight="@drawable/ic_expand_more"
-                    android:text="Thông tin đơn hàng"
-                    android:textColor="#000"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:text="Thông tin đơn hàng" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -198,19 +183,17 @@
 
                     <TableLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp">
+                        android:layout_height="wrap_content">
 
-                        <TableRow android:padding="5dp">
+                        <TableRow>
 
                             <TextView
+                                style="@style/setText_content"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
                                 android:layout_weight="2"
-                                android:text="Sản phẩm"
-                                android:textColor="#000"
-                                android:textSize="16sp" />
+                                android:text="Sản phẩm" />
 
                             <androidx.cardview.widget.CardView
                                 android:layout_width="0dp"
@@ -225,123 +208,140 @@
                             </androidx.cardview.widget.CardView>
                         </TableRow>
 
-                        <TableRow android:padding="5dp">
+                        <TableRow>
 
                             <TextView
+                                style="@style/setText_content"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="2"
-                                android:text="Tên sản phẩm"
-                                android:textColor="#000"
-                                android:textSize="16sp" />
+                                android:text="Tên sản phẩm" />
 
                             <TextView
                                 android:id="@+id/name_product"
+                                style="@style/setText_content"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="3"
-                                android:text="NameProduct"
-                                android:textColor="#000"
-                                android:textSize="16sp" />
+                                android:text="NameProduct" />
                         </TableRow>
 
-                        <TableRow android:padding="5dp">
+                        <TableRow>
 
                             <TextView
+                                style="@style/setText_content"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="2"
-                                android:text="Giá sản phẩm"
-                                android:textColor="#000"
-                                android:textSize="16sp" />
+                                android:text="Giá sản phẩm" />
 
                             <TextView
                                 android:id="@+id/gia_sp"
+                                style="@style/setText_content"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="3"
-                                android:text="00.000VND"
-                                android:textColor="#000"
-                                android:textSize="16sp" />
+                                android:text="00.000VND" />
                         </TableRow>
 
-                        <TableRow android:padding="5dp">
+                        <TableRow>
 
                             <TextView
+                                style="@style/setText_content"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="2"
-                                android:text="Số lượng"
-                                android:textColor="#000"
-                                android:textSize="16sp" />
+                                android:text="Số lượng" />
 
                             <TextView
                                 android:id="@+id/soluong_sp"
+                                style="@style/setText_content"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="3"
-                                android:text="0"
-                                android:textColor="#000"
-                                android:textSize="18sp" />
+                                android:text="0" />
                         </TableRow>
 
-                        <TableRow android:padding="5dp">
+                        <TableRow>
 
                             <TextView
+                                style="@style/setText_content"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="2"
-                                android:text="Ghi chú"
-                                android:textColor="#000"
-                                android:textSize="16sp" />
+                                android:text="Ghi chú" />
 
                             <TextView
                                 android:id="@+id/ghichu_hd"
+                                style="@style/setText_content"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="3"
                                 android:hint="(trống)"
                                 android:inputType="textNoSuggestions|textMultiLine"
-                                android:maxLines="4"
-                                android:textColor="#000"
-                                android:textSize="16sp" />
+                                android:maxLines="4" />
                         </TableRow>
 
-                        <TableRow android:padding="5dp">
+                        <TableRow>
 
                             <TextView
+                                style="@style/setText_content"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="2"
-                                android:text="Thành tiền"
-                                android:textColor="#000"
-                                android:textSize="16sp" />
+                                android:text="Thành tiền" />
 
                             <TextView
                                 android:id="@+id/tongtien_hd"
+                                style="@style/setText_content"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="3"
-                                android:text="00.000VND"
-                                android:textColor="#000"
-                                android:textSize="16sp" />
+                                android:text="00.000VND" />
                         </TableRow>
                     </TableLayout>
                 </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/pay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/info_product"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="16dp"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/setText_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableRight="@drawable/ic_expand_more"
+                    android:text="Phương thức thanh toán" />
+
+                <TextView
+                    style="@style/setText_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_layout"
+                    android:paddingLeft="16dp"
+                    android:text="Thanh toán tiền mặt sau khi nhận sản phẩm" />
             </LinearLayout>
 
             <Button
                 android:id="@+id/thanhtoan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/info_product"
+                android:layout_below="@+id/pay"
                 android:layout_centerHorizontal="true"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginBottom="48dp"
                 android:background="@drawable/shape_layout_button"
                 android:text="Thanh toán"
-                android:textAllCaps="true" />
+                android:textStyle="bold"
+                android:textAllCaps="false" />
         </RelativeLayout>
     </ScrollView>
 </LinearLayout>

@@ -173,7 +173,6 @@ public class HoaDonActivity extends AppCompatActivity {
 
     private void initHandler() {
         handler = new Handler() {
-            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void handleMessage(@NonNull Message msg) {
                 switch (msg.what) {
@@ -222,5 +221,11 @@ public class HoaDonActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    @Override
+    protected void onResume() {
+        setViewFrag();
+        super.onResume();
     }
 }

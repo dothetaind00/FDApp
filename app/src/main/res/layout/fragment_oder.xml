@@ -82,12 +82,14 @@
                             android:layout_weight="2"
                             android:text="Thời gian:"/>
                         <TextView
+                            android:id="@+id/datetime"
                             android:layout_weight="5"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             style="@style/setText_content"
                             />
                         <TextView
+                            android:id="@+id/setdatetime"
                             android:text="Sửa"
                             android:textColor="#00f"
                             android:layout_weight="1"
@@ -274,13 +276,13 @@
             <Button
                 android:id="@+id/thanhtoan"
                 android:text="Thanh toán"
-                style="@style/setText_content"
                 android:layout_below="@+id/content4"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="32dp"
                 android:background="@drawable/shape_layout_button"
                 android:textAllCaps="false"
                 android:textStyle="bold"
+                android:textSize="18dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </RelativeLayout>

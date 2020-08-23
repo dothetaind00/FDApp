@@ -71,7 +71,7 @@ public class SearchViewActivity extends AppCompatActivity {
         init();
         initHandler();
         getKhachHang();
-        Back_Arrow();
+//        Back_Arrow();
         Click_event();
     }
 
@@ -304,5 +304,11 @@ public class SearchViewActivity extends AppCompatActivity {
             intent.putExtra("drink",sanpham);
             startActivity(intent);
         }
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }

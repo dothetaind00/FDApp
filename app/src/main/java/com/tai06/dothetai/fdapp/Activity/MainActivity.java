@@ -32,8 +32,7 @@ import com.android.volley.toolbox.Volley;
 import com.google.android.material.navigation.NavigationView;
 import com.tai06.dothetai.fdapp.AdminActivity.InsertSanphamActivity;
 import com.tai06.dothetai.fdapp.AdminActivity.UpdateSanPhamActivity;
-import com.tai06.dothetai.fdapp.Fragment.DonhangFragment;
-import com.tai06.dothetai.fdapp.Fragment.TrangchuFragment;
+import com.tai06.dothetai.fdapp.Fragment.Trangchu.TrangchuFragment;
 import com.tai06.dothetai.fdapp.LoginSignup.ChangepswActivity;
 import com.tai06.dothetai.fdapp.LoginSignup.LoginActivity;
 import com.tai06.dothetai.fdapp.OOP.KhachHang;
@@ -43,7 +42,6 @@ import com.tai06.dothetai.fdapp.URL.Link;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -132,7 +130,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 back_home = true;
                 break;
             case R.id.menu_donhang:
-                showFragment(new DonhangFragment());
+//                showFragment(new DonhangFragment());
+                Intent intent = new Intent(this,DonHangActivity.class);
+                intent.putExtra("khachhang",khachHang);
+                startActivity(intent);
                 back_home = false;
                 break;
             case R.id.menu_doimatkhau:

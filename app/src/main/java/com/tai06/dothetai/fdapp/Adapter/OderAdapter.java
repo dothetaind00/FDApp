@@ -14,31 +14,33 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
+import com.tai06.dothetai.fdapp.Fragment.DonHang.OderStoreFragment;
 import com.tai06.dothetai.fdapp.Fragment.DonHang.ShipClientFragment;
+import com.tai06.dothetai.fdapp.Fragment.HoaDon.OderFragment;
 import com.tai06.dothetai.fdapp.OOP.CTHD;
 import com.tai06.dothetai.fdapp.R;
 
 import java.util.List;
 
-public class DonHangAdapter extends RecyclerView.Adapter<DonHangAdapter.ViewHolder> {
+public class OderAdapter extends RecyclerView.Adapter<OderAdapter.ViewHolder> {
 
     private List<CTHD> mList;
     private Fragment mFrag;
 
-    public DonHangAdapter(List<CTHD> mList, Fragment mFrag) {
+    public OderAdapter(List<CTHD> mList, Fragment mFrag) {
         this.mList = mList;
         this.mFrag = mFrag;
     }
 
     @NonNull
     @Override
-    public DonHangAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public OderAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_item_donhang, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull DonHangAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull OderAdapter.ViewHolder holder, int position) {
         CTHD cthd = mList.get(position);
         Picasso.get().load(cthd.getImage()).into(holder.image_product);
         holder.name_product.setText(cthd.getTen_sp());
@@ -54,7 +56,7 @@ public class DonHangAdapter extends RecyclerView.Adapter<DonHangAdapter.ViewHold
         holder.ic_expand_more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((ShipClientFragment)mFrag).ShowHide(holder.ic_expand_more,holder.table_detail);
+                ((OderStoreFragment)mFrag).ShowHide(holder.ic_expand_more,holder.table_detail);
             }
         });
         if (cthd.getTrangthai().equals("Đã hủy")){
@@ -65,11 +67,11 @@ public class DonHangAdapter extends RecyclerView.Adapter<DonHangAdapter.ViewHold
             public void onClick(View v) {
                 String textBtn = holder.cancel_donhang.getText().toString().trim();
                 if (textBtn.trim().equals("Hủy đơn hàng")){
-                    ((ShipClientFragment)mFrag).postUpdateCTHD(holder.status,cthd.getMa_hd());
+                    ((OderStoreFragment)mFrag).postUpdateCTHD(holder.status,cthd.getMa_hd());
                     holder.cancel_donhang.setText("Xóa");
                 }else{
 //                    postDelectCTHD(cthd,position);
-                    ((ShipClientFragment)mFrag).postDelectCTHD(cthd,position);
+                    ((OderStoreFragment)mFrag).postDelectCTHD(cthd,position);
                 }
             }
         });

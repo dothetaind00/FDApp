@@ -12,6 +12,7 @@ public class CTHD extends HoaDon implements Serializable {
     private int thanhtien;
     private String ghichu;
     private String trangthai;
+    private String vanchuyen;
 
     public CTHD(int ma_cthd, int ma_hd, int sl_sp, int thanhtien, String ghichu, String trangthai) {
         this.ma_cthd = ma_cthd;
@@ -22,7 +23,7 @@ public class CTHD extends HoaDon implements Serializable {
         this.trangthai = trangthai;
     }
 
-    public CTHD(int ma_hd, String ten_kh, String diachi, String sdt, String ngaydat_hd, String ngaygiao_hd,String ten_sp ,String image , int sl_sp,int gia_sp , int thanhtien, String ghichu, String trangthai) {
+    public CTHD(int ma_hd, String ten_kh, String diachi, String sdt, String ngaydat_hd, String ngaygiao_hd,String ten_sp ,String image , int sl_sp,int gia_sp , int thanhtien, String ghichu, String trangthai,String vanchuyen) {
         super(ma_hd,ten_kh,diachi,sdt,ngaydat_hd,ngaygiao_hd);
         this.ten_sp = ten_sp;
         this.image = image;
@@ -31,6 +32,7 @@ public class CTHD extends HoaDon implements Serializable {
         this.thanhtien = thanhtien;
         this.ghichu = ghichu;
         this.trangthai = trangthai;
+        this.vanchuyen = vanchuyen;
     }
 
     public int getMa_cthd() {
@@ -95,5 +97,13 @@ public class CTHD extends HoaDon implements Serializable {
 
     public void setTrangthai(String trangthai) {
         this.trangthai = trangthai;
+    }
+
+    public String getVanchuyen() {
+        return vanchuyen;
+    }
+
+    public void setVanchuyen(String vanchuyen) {
+        this.vanchuyen = vanchuyen;
     }
 }

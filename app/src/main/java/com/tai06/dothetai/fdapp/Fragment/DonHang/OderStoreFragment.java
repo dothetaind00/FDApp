@@ -1,7 +1,6 @@
-package com.tai06.dothetai.fdapp.Fragment;
+package com.tai06.dothetai.fdapp.Fragment.DonHang;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -21,17 +20,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
-import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.tai06.dothetai.fdapp.Adapter.DonHangAdapter;
+import com.tai06.dothetai.fdapp.Adapter.OderAdapter;
 import com.tai06.dothetai.fdapp.OOP.CTHD;
-import com.tai06.dothetai.fdapp.OOP.HoaDon;
 import com.tai06.dothetai.fdapp.OOP.KhachHang;
 import com.tai06.dothetai.fdapp.R;
 import com.tai06.dothetai.fdapp.URL.Link;
@@ -46,29 +43,31 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DonhangFragment extends Fragment {
+public class OderStoreFragment extends Fragment {
 
     public static final int MSG_DONHANG = 1;
     public static final int MSG_KhachHang = 2;
 
-    private View view;
     private RecyclerView recycle_donhang;
     private Handler handler;
     private List<CTHD> arrCTHD;
-    private DonHangAdapter donHangAdapter;
+    private OderAdapter oderAdapter;
     private KhachHang khachHang;
     private ProgressDialog progressDialog;
     private TextView empty_donhang;
-    private String ma_kh;
 
-    public DonhangFragment() {
+    private View view;
+
+    public OderStoreFragment() {
+        // Required empty public constructor
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_donhang, container, false);
+        view = inflater.inflate(R.layout.fragment_oder_store, container, false);
         init();
+        progress_dialog();
         initHandler();
         getKhachHang();
         check_donhang();
@@ -78,6 +77,13 @@ public class DonhangFragment extends Fragment {
     private void init() {
         recycle_donhang = view.findViewById(R.id.recycle_donhang);
         empty_donhang = view.findViewById(R.id.empty_donhang);
+    }
+
+    public void progress_dialog(){
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.show();
+        progressDialog.setContentView(R.layout.progress_dialog);
+        progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
     }
 
     private void initHandler() {
@@ -114,12 +120,12 @@ public class DonhangFragment extends Fragment {
     }
 
     public void setDonHangAdapter(List<CTHD> list) {
-        donHangAdapter = new DonHangAdapter(list, DonhangFragment.this);
+        oderAdapter = new OderAdapter(list, OderStoreFragment.this);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 1, GridLayoutManager.VERTICAL, false);
         recycle_donhang.setLayoutManager(gridLayoutManager);
-        recycle_donhang.setAdapter(donHangAdapter);
+        recycle_donhang.setAdapter(oderAdapter);
         recycle_donhang.setHasFixedSize(true);
-        donHangAdapter.notifyDataSetChanged();
+        oderAdapter.notifyDataSetChanged();
     }
 
     private void getDonHang() {
@@ -148,12 +154,14 @@ public class DonhangFragment extends Fragment {
                                         jsonObject.getInt("gia_sp"),
                                         jsonObject.getInt("thanhtien"),
                                         jsonObject.getString("ghichu"),
-                                        jsonObject.getString("trangthai")
+                                        jsonObject.getString("trangthai"),
+                                        jsonObject.getString("vanchuyen")
                                 ));
                                 Message msg = new Message();
                                 msg.what = MSG_DONHANG;
                                 msg.obj = list;
                                 handler.sendMessage(msg);
+                                progressDialog.dismiss();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -164,12 +172,14 @@ public class DonhangFragment extends Fragment {
                     public void onErrorResponse(VolleyError error) {
                         Toast.makeText(getActivity(), "Xảy ra lỗi", Toast.LENGTH_SHORT).show();
                         Log.d("AAA", "Error" + error.toString());
+                        progressDialog.dismiss();
                     }
                 }) {
                     @Override
                     protected Map<String, String> getParams() throws AuthFailureError {
                         Map<String, String> param = new HashMap<>();
                         param.put("ma_kh", String.valueOf(khachHang.getMa_kh()));
+                        param.put("vanchuyen","oder");
                         return param;
                     }
                 };
@@ -233,5 +243,97 @@ public class DonhangFragment extends Fragment {
                 }
             }
         });
+    }
+
+    //cap nhat cthd sau khi huy don hang
+    public void postUpdateCTHD(TextView textView,int ma_hd){
+        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Link.URL_postUpdateCTHD, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                if (response.trim().equals("success")){
+                    Toast.makeText(getActivity(), "Hệ thống đã xử lí", Toast.LENGTH_SHORT).show();
+                    textView.setText("Đã hủy");
+                }else{
+                    Toast.makeText(getActivity(),"Vui lòng thử lại!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getActivity(), "Xảy ra lỗi", Toast.LENGTH_SHORT).show();
+                Log.d("AAA", "Lỗi!\n " + error.toString());
+                progressDialog.dismiss();
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> param = new HashMap<>();
+                param.put("ma_hd",String.valueOf(ma_hd));
+                return param;
+            }
+        };
+        requestQueue.add(stringRequest);
+    }
+
+    //Xoa CTHD
+    public void postDelectCTHD(CTHD cthd,int i){
+        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Link.URL_postDeleteCTHD, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                if (response.trim().equals("success")){
+                    Toast.makeText(getActivity(), "Đã xóa", Toast.LENGTH_SHORT).show();
+                    postDelectHD(cthd,i);
+                }else{
+                    Toast.makeText(getActivity(),"Vui lòng thử lại!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getActivity(), "Xảy ra lỗi", Toast.LENGTH_SHORT).show();
+                Log.d("AAA", "Lỗi!\n " + error.toString());
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> param = new HashMap<>();
+                param.put("ma_hd",String.valueOf(cthd.getMa_hd()));
+                return param;
+            }
+        };
+        requestQueue.add(stringRequest);
+    }
+
+    //Xoa HD
+    public void postDelectHD(CTHD cthd,int i){
+        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Link.URL_postDeleteHD, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                if (response.trim().equals("success")){
+                    Toast.makeText(getActivity(), "Đã xóa", Toast.LENGTH_SHORT).show();
+                    arrCTHD.remove(i);
+                    setDonHangAdapter(arrCTHD);
+                }else{
+                    Toast.makeText(getActivity(),"Vui lòng thử lại!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getActivity(), "Xảy ra lỗi", Toast.LENGTH_SHORT).show();
+                Log.d("AAA", "Lỗi!\n " + error.toString());
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> param = new HashMap<>();
+                param.put("ma_hd",String.valueOf(cthd.getMa_hd()));
+                return param;
+            }
+        };
+        requestQueue.add(stringRequest);
     }
 }

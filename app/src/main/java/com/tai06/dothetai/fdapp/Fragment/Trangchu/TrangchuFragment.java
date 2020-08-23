@@ -1,7 +1,6 @@
-package com.tai06.dothetai.fdapp.Fragment;
+package com.tai06.dothetai.fdapp.Fragment.Trangchu;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -82,6 +81,7 @@ public class TrangchuFragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_trangchu, container, false);
         init();
+        progress_dialog();
         initHandler();
         getKhachHang();
         getSanpham(MSG_RECYL_Food, Link.URL_getFood);
@@ -194,6 +194,7 @@ public class TrangchuFragment extends Fragment {
                                 msg.what = MSG;
                                 msg.obj = list;
                                 handler.sendMessage(msg);
+                                progressDialog.dismiss();
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -203,6 +204,7 @@ public class TrangchuFragment extends Fragment {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Toast.makeText(getActivity(), "Lỗi kết nối", Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
                     }
                 });
                 int socketTimeout = 30000;//set timeout 30s
@@ -262,6 +264,13 @@ public class TrangchuFragment extends Fragment {
                 });
             }
         }
+    }
+
+    private void progress_dialog(){
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.show();
+        progressDialog.setContentView(R.layout.progress_dialog);
+        progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
     }
 
     private void Click_textview(TextView textview,int ma_lh,String title){

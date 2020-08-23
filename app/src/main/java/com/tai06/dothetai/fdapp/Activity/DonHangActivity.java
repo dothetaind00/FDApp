@@ -15,19 +15,20 @@ import android.widget.FrameLayout;
 
 import com.google.android.material.tabs.TabLayout;
 import com.tai06.dothetai.fdapp.Adapter.ViewFragmentAdapter;
+import com.tai06.dothetai.fdapp.Fragment.DonHang.OderStoreFragment;
+import com.tai06.dothetai.fdapp.Fragment.DonHang.ShipClientFragment;
 import com.tai06.dothetai.fdapp.Fragment.HoaDon.OderFragment;
 import com.tai06.dothetai.fdapp.Fragment.HoaDon.PayHoadonFragment;
 import com.tai06.dothetai.fdapp.OOP.KhachHang;
 import com.tai06.dothetai.fdapp.OOP.Sanpham;
 import com.tai06.dothetai.fdapp.R;
 
-public class HoaDonActivity extends AppCompatActivity {
-    public static final int MSG_SanPham = 1;
-    public static final int MSG_KhachHang = 2;
+public class DonHangActivity extends AppCompatActivity {
+
+    public static final int MSG_KhachHang = 1;
 
     private Toolbar toolbar_hoadon;
     private Handler handler;
-    private Sanpham sanpham;
     private KhachHang khachHang;
     private TabLayout mTabs;
     private View mIndicator;
@@ -38,10 +39,9 @@ public class HoaDonActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_hoadon);
+        setContentView(R.layout.activity_don_hang);
         init();
         initHandler();
-        getSanPham();
         getKhachHang();
         setViewFrag();
         Click_event();
@@ -61,24 +61,14 @@ public class HoaDonActivity extends AppCompatActivity {
     }
 
     private void setViewFrag(){
-        Intent intent = getIntent();
-        String note = intent.getStringExtra("ghichu");
-        String sl = intent.getStringExtra("soluong");
-        String tong = intent.getStringExtra("tongtien");
-
         viewFragmentAdapter = new ViewFragmentAdapter(getSupportFragmentManager());
         Bundle bundle = new Bundle();
-        bundle.putSerializable("sanpham",sanpham);
         bundle.putSerializable("khachhang",khachHang);
 
-        bundle.putString("ghichu",note);
-        bundle.putString("soluong",sl);
-        bundle.putString("tongtien",tong);
-
-        Fragment frag_pay = new PayHoadonFragment();
+        Fragment frag_pay = new ShipClientFragment();
         frag_pay.setArguments(bundle);
-        viewFragmentAdapter.AddFragment(frag_pay,"Giao hàng tận nơi");
-        Fragment frag_oder = new OderFragment();
+        viewFragmentAdapter.AddFragment(frag_pay,"Đơn hàng vận chuyển");
+        Fragment frag_oder = new OderStoreFragment();
         frag_oder.setArguments(bundle);
         viewFragmentAdapter.AddFragment(frag_oder,"Nhận tại cửa hàng");
 
@@ -125,10 +115,6 @@ public class HoaDonActivity extends AppCompatActivity {
             @Override
             public void handleMessage(@NonNull Message msg) {
                 switch (msg.what) {
-                    case MSG_SanPham:
-                        sanpham = new Sanpham();
-                        sanpham = (Sanpham) msg.obj;
-                        break;
                     case MSG_KhachHang:
                         khachHang = new KhachHang();
                         khachHang = (KhachHang) msg.obj;
@@ -136,20 +122,6 @@ public class HoaDonActivity extends AppCompatActivity {
                 }
             }
         };
-    }
-
-    private void getSanPham(){
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                sanpham = (Sanpham) getIntent().getSerializableExtra("sanpham");
-                Message msg = new Message();
-                msg.what = MSG_SanPham;
-                msg.obj = sanpham;
-                handler.sendMessage(msg);
-            }
-        });
-        thread.start();
     }
 
     private void getKhachHang(){

@@ -1,4 +1,4 @@
-package com.tai06.dothetai.fdapp.Fragment;
+package com.tai06.dothetai.fdapp.Fragment.HoaDon;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -335,6 +335,7 @@ public class OderFragment extends Fragment {
                 param.put("thanhtien", String.valueOf(tongtien));
                 param.put("ghichu", ghichu_hd.getText().toString().trim());
                 param.put("trangthai", "Đang đóng gói");
+                param.put("vanchuyen","oder");
                 return param;
             }
         };

@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.FileUtils;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
@@ -49,7 +50,7 @@ public class InsertSanphamActivity extends AppCompatActivity {
     public static final int MAX = 999999;
     public static final int MIN = 1;
     private boolean check;
-    private boolean selected = false;
+    private boolean select = false;
     private Bitmap bitmap;
     private Spinner sp_category;
     private Button btn_insertsp;
@@ -86,7 +87,7 @@ public class InsertSanphamActivity extends AppCompatActivity {
         img_product.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                selected = true;
+//                select = true;
                 eventImage();
             }
         });
@@ -97,16 +98,16 @@ public class InsertSanphamActivity extends AppCompatActivity {
                 String text_btn = btn_insertsp.getText().toString().trim();
                 String text_tensp = name_product.getText().toString().trim();
                 String text_giasp = price.getText().toString().trim();
-                int gia = Integer.parseInt(text_giasp);
                 String text_motasp = mota_sp.getText().toString().trim();
                 if (text_tensp.equals("") || text_giasp.equals("") || text_motasp.equals("")) {
                     Toast.makeText(InsertSanphamActivity.this, "Vui lòng nhập thông tin", Toast.LENGTH_SHORT).show();
                 } else {
+                    int gia = Integer.parseInt(text_giasp);
                     if (gia < 1000) {
                         Toast.makeText(InsertSanphamActivity.this, "Kiểm tra lại giá sản phẩm", Toast.LENGTH_SHORT).show();
                     } else{
-                        if (text_btn.equals("Thêm sản phẩm mới")){
-                            if (selected == true){
+                        if (text_btn.equals("Thêm sản phẩm")){
+                            if (select == true){
                                 check_sanpham();
                             }else{
                                 Toast.makeText(InsertSanphamActivity.this, "Vui lòng chọn hình ảnh", Toast.LENGTH_SHORT).show();
@@ -115,7 +116,7 @@ public class InsertSanphamActivity extends AppCompatActivity {
                             name_product.getText().clear();
                             price.getText().clear();
                             mota_sp.getText().clear();
-                            btn_insertsp.setText("Thêm sản phẩm mới");
+                            btn_insertsp.setText("Thêm sản phẩm");
                         }
                     }
                 }
@@ -236,11 +237,16 @@ public class InsertSanphamActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE_IMAGE && resultCode == RESULT_OK && data != null && data.getData() != null) {
             Uri uri = data.getData();
-            try {
-                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-                img_product.setImageBitmap(bitmap);
-            } catch (IOException e) {
-                e.printStackTrace();
+            if (uri != null){
+                try {
+                    bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                    img_product.setImageBitmap(bitmap);
+                    select = true;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }else{
+                select = false;
             }
         }
     }

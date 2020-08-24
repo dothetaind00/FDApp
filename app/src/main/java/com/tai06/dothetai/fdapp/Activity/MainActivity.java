@@ -19,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +31,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.navigation.NavigationView;
+import com.squareup.picasso.Picasso;
 import com.tai06.dothetai.fdapp.AdminActivity.InsertSanphamActivity;
 import com.tai06.dothetai.fdapp.AdminActivity.UpdateSanPhamActivity;
 import com.tai06.dothetai.fdapp.Fragment.Trangchu.TrangchuFragment;
@@ -45,6 +47,8 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     public static final int MSG_HEADER_VIEW = 1;
@@ -57,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Handler handler;
     private KhachHang khachHang;
     private TextView ten_kh, email_kh;
+    private ImageView img_kh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -193,10 +198,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void headView(KhachHang khachHang) {
         View view = navigationView.getHeaderView(0);
+        img_kh = view.findViewById(R.id.img_kh);
         email_kh = view.findViewById(R.id.email_kh);
         ten_kh = view.findViewById(R.id.ten_kh);
+        Picasso.get().load(khachHang.getImage()).into(img_kh);
         email_kh.setText(khachHang.getEmail());
         ten_kh.setText(khachHang.getTen_kh());
+
+        img_kh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,InfoKhachhangActivity.class);
+                intent.putExtra("khachhang",khachHang);
+                startActivity(intent);
+            }
+        });
     }
 
     //Phần get thông tin khách hàng từ email đăng nhập
@@ -246,6 +262,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
         thread.start();
+    }
+
+    @Override
+    protected void onResume() {
+        getInfoKH();
+        super.onResume();
     }
 
     @Override

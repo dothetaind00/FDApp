@@ -24,6 +24,8 @@ public class Link {
     public static final String URL_postInsertKH = "https://tai06dothe.000webhostapp.com/FDApp/PHP/postInsertKH.php";
     public static final String URL_postUpdateKH = "https://tai06dothe.000webhostapp.com/FDApp/PHP/postUpdateKH.php";
     public static final String URL_getInfoKH = "https://tai06dothe.000webhostapp.com/FDApp/PHP/getInfoKH.php";
+    public static final String URL_postUpdateInfoKH = "https://tai06dothe.000webhostapp.com/FDApp/UpdateInfoKH/postUpdateInfoKH.php";
+    public static final String URL_Image_User = "https://tai06dothe.000webhostapp.com/FDApp/UpdateInfoKH/ic_user.png";
 
     //sanpham
     public static final String URL_check_sanpham = "https://tai06dothe.000webhostapp.com/FDApp/PHP/check_sanpham.php";

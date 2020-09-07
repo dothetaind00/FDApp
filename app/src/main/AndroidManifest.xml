@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/MyAppTheme">
-        <activity android:name=".Activity.InfoKhachhangActivity"></activity>
+        <activity android:name=".AdminActivity.ConfirmDonhangActivity"></activity>
+        <activity android:name=".Activity.InfoKhachhangActivity" />
         <activity android:name=".Activity.DonHangActivity" />
         <activity android:name=".Activity.IntroActivity">
             <intent-filter>

@@ -31,6 +31,10 @@
                 android:id="@+id/update_sanpham"
                 android:icon="@drawable/ic_update"
                 android:title="Cập nhật sản phẩm"/>
+            <item
+                android:id="@+id/confirm_donhang"
+                android:icon="@drawable/ic_update"
+                android:title="Xác nhận đơn hàng"/>
         </menu>
     </item>
 </menu>

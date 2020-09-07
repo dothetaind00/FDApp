@@ -96,7 +96,7 @@ public class ShipClientFragment extends Fragment {
         };
     }
 
-    private void getKhachHang(){
+    private void getKhachHang() {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -168,7 +168,7 @@ public class ShipClientFragment extends Fragment {
                     protected Map<String, String> getParams() throws AuthFailureError {
                         Map<String, String> param = new HashMap<>();
                         param.put("ma_kh", String.valueOf(khachHang.getMa_kh()));
-                        param.put("vanchuyen","ship");
+                        param.put("vanchuyen", "ship");
                         return param;
                     }
                 };
@@ -235,16 +235,16 @@ public class ShipClientFragment extends Fragment {
     }
 
     //cap nhat cthd sau khi huy don hang
-    public void postUpdateCTHD(TextView textView,int ma_hd){
+    public void postUpdateCTHD(TextView textView, int ma_hd) {
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Link.URL_postUpdateCTHD, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                if (response.trim().equals("success")){
+                if (response.trim().equals("success")) {
                     Toast.makeText(getActivity(), "Hệ thống đã xử lí", Toast.LENGTH_SHORT).show();
                     textView.setText("Đã hủy");
-                }else{
-                    Toast.makeText(getActivity(),"Vui lòng thử lại!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getActivity(), "Vui lòng thử lại!", Toast.LENGTH_SHORT).show();
                 }
             }
         }, new Response.ErrorListener() {
@@ -253,11 +253,11 @@ public class ShipClientFragment extends Fragment {
                 Toast.makeText(getActivity(), "Xảy ra lỗi", Toast.LENGTH_SHORT).show();
                 Log.d("AAA", "Lỗi!\n " + error.toString());
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> param = new HashMap<>();
-                param.put("ma_hd",String.valueOf(ma_hd));
+                param.put("ma_hd", String.valueOf(ma_hd));
                 return param;
             }
         };
@@ -265,16 +265,16 @@ public class ShipClientFragment extends Fragment {
     }
 
     //Xoa CTHD
-    public void postDelectCTHD(CTHD cthd,int i){
+    public void postDelectCTHD(CTHD cthd, int i) {
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Link.URL_postDeleteCTHD, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                if (response.trim().equals("success")){
+                if (response.trim().equals("success")) {
                     Toast.makeText(getActivity(), "Đã xóa", Toast.LENGTH_SHORT).show();
-                    postDelectHD(cthd,i);
-                }else{
-                    Toast.makeText(getActivity(),"Vui lòng thử lại!", Toast.LENGTH_SHORT).show();
+                    postDelectHD(cthd, i);
+                } else {
+                    Toast.makeText(getActivity(), "Vui lòng thử lại!", Toast.LENGTH_SHORT).show();
                 }
             }
         }, new Response.ErrorListener() {
@@ -283,11 +283,11 @@ public class ShipClientFragment extends Fragment {
                 Toast.makeText(getActivity(), "Xảy ra lỗi", Toast.LENGTH_SHORT).show();
                 Log.d("AAA", "Lỗi!\n " + error.toString());
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> param = new HashMap<>();
-                param.put("ma_hd",String.valueOf(cthd.getMa_hd()));
+                param.put("ma_hd", String.valueOf(cthd.getMa_hd()));
                 return param;
             }
         };
@@ -295,17 +295,17 @@ public class ShipClientFragment extends Fragment {
     }
 
     //Xoa HD
-    public void postDelectHD(CTHD cthd,int i){
+    public void postDelectHD(CTHD cthd, int i) {
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Link.URL_postDeleteHD, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                if (response.trim().equals("success")){
+                if (response.trim().equals("success")) {
                     Toast.makeText(getActivity(), "Đã xóa", Toast.LENGTH_SHORT).show();
                     arrCTHD.remove(i);
                     setDonHangAdapter(arrCTHD);
-                }else{
-                    Toast.makeText(getActivity(),"Vui lòng thử lại!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getActivity(), "Vui lòng thử lại!", Toast.LENGTH_SHORT).show();
                 }
             }
         }, new Response.ErrorListener() {
@@ -314,11 +314,11 @@ public class ShipClientFragment extends Fragment {
                 Toast.makeText(getActivity(), "Xảy ra lỗi", Toast.LENGTH_SHORT).show();
                 Log.d("AAA", "Lỗi!\n " + error.toString());
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> param = new HashMap<>();
-                param.put("ma_hd",String.valueOf(cthd.getMa_hd()));
+                param.put("ma_hd", String.valueOf(cthd.getMa_hd()));
                 return param;
             }
         };

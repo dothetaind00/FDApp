@@ -40,6 +40,7 @@ public class Link {
     public static final String URL_postDeleteCTHD = "https://tai06dothe.000webhostapp.com/FDApp/PHP/postDeleteCTHD.php";
     public static final String URL_postDeleteHD = "https://tai06dothe.000webhostapp.com/FDApp/PHP/postDeleteHD.php";
     public static final String URL_postUpdateCTHD = "https://tai06dothe.000webhostapp.com/FDApp/PHP/postUpdateCTHD.php";
+    public static final String URL_getAllDonhang = "https://tai06dothe.000webhostapp.com/FDApp/PHP/getAllDonhang.php";
 
     //hoa don
     public static final String URL_postInsertHD = "https://tai06dothe.000webhostapp.com/FDApp/PHP/postInsertHD.php";

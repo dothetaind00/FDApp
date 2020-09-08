@@ -41,6 +41,8 @@ public class Link {
     public static final String URL_postDeleteHD = "https://tai06dothe.000webhostapp.com/FDApp/PHP/postDeleteHD.php";
     public static final String URL_postUpdateCTHD = "https://tai06dothe.000webhostapp.com/FDApp/PHP/postUpdateCTHD.php";
     public static final String URL_getAllDonhang = "https://tai06dothe.000webhostapp.com/FDApp/PHP/getAllDonhang.php";
+    public static final String URL_getDateDonhang = "https://tai06dothe.000webhostapp.com/FDApp/PHP/getDateDonhang.php";
+    public static final String URL_postdatedonhang = "https://tai06dothe.000webhostapp.com/FDApp/PHP/postdatedonhang.php";
 
     //hoa don
     public static final String URL_postInsertHD = "https://tai06dothe.000webhostapp.com/FDApp/PHP/postInsertHD.php";

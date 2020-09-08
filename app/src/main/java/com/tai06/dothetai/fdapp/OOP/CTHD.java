@@ -1,6 +1,7 @@
 package com.tai06.dothetai.fdapp.OOP;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class CTHD extends HoaDon implements Serializable {
     private int ma_cthd;
@@ -14,6 +15,9 @@ public class CTHD extends HoaDon implements Serializable {
     private String trangthai;
     private String vanchuyen;
 
+    public CTHD() {
+    }
+
     public CTHD(int ma_cthd, int ma_hd, int sl_sp, int thanhtien, String ghichu, String trangthai) {
         this.ma_cthd = ma_cthd;
         this.ma_hd = ma_hd;
@@ -21,6 +25,11 @@ public class CTHD extends HoaDon implements Serializable {
         this.thanhtien = thanhtien;
         this.ghichu = ghichu;
         this.trangthai = trangthai;
+    }
+
+    public CTHD(String ngaydat_hd){
+        super(ngaydat_hd);
+        this.ngaydat_hd = ngaydat_hd;
     }
 
     public CTHD(int ma_hd, String ten_kh, String diachi, String sdt, String ngaydat_hd, String ngaygiao_hd,String ten_sp ,String image , int sl_sp,int gia_sp , int thanhtien, String ghichu, String trangthai,String vanchuyen) {

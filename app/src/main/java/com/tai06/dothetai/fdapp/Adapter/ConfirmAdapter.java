@@ -36,8 +36,8 @@ public class ConfirmAdapter extends RecyclerView.Adapter<ConfirmAdapter.ViewHold
     public ConfirmAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_item_donhang, parent, false);
         return new ViewHolder(view);
-    }
 
+}
     @Override
     public void onBindViewHolder(@NonNull ConfirmAdapter.ViewHolder holder, int position) {
         CTHD cthd = mList.get(position);
@@ -73,6 +73,7 @@ public class ConfirmAdapter extends RecyclerView.Adapter<ConfirmAdapter.ViewHold
         TableLayout table_detail;
         //chitietdonhang
         TextView ten_kh,diachi,sdt,ngaydat_hd,ngaygiao_hd,thanhtoan;
+        //cthd theo ngay
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             image_product = itemView.findViewById(R.id.image_product);

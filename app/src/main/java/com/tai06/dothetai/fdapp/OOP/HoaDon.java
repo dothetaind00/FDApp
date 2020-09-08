@@ -1,6 +1,7 @@
 package com.tai06.dothetai.fdapp.OOP;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class HoaDon implements Serializable {
     protected int ma_hd;
@@ -13,6 +14,10 @@ public class HoaDon implements Serializable {
     protected String ngaygiao_hd;
 
     public HoaDon() {
+    }
+
+    public HoaDon(String ngaydat_hd) {
+        this.ngaydat_hd = ngaydat_hd;
     }
 
     public HoaDon(int ma_hd, int ma_sp, int ma_kh, String ten_kh, String diachi, String sdt, String ngaydat_hd, String ngaygiao_hd) {
@@ -98,4 +103,5 @@ public class HoaDon implements Serializable {
     public void setNgaygiao_hd(String ngaygiao_hd) {
         this.ngaygiao_hd = ngaygiao_hd;
     }
+
 }

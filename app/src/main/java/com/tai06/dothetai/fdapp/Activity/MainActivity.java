@@ -32,7 +32,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.Picasso;
-import com.tai06.dothetai.fdapp.AdminActivity.ConfirmDonhangActivity;
+import com.tai06.dothetai.fdapp.AdminActivity.ConfirmCTHD.ConfirmDonhangActivity;
 import com.tai06.dothetai.fdapp.AdminActivity.InsertSanphamActivity;
 import com.tai06.dothetai.fdapp.AdminActivity.UpdateSanPhamActivity;
 import com.tai06.dothetai.fdapp.Fragment.Trangchu.TrangchuFragment;
@@ -47,8 +47,6 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 

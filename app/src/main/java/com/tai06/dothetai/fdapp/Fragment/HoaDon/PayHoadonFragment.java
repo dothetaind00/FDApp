@@ -305,7 +305,7 @@ public class PayHoadonFragment extends Fragment {
                 param.put("sl_sp", soluong_sp.getText().toString().trim());
                 param.put("thanhtien", String.valueOf(tongtien));
                 param.put("ghichu", ghichu_hd.getText().toString().trim());
-                param.put("trangthai", "Đang đóng gói");
+                param.put("trangthai", "Đang chờ xác nhận");
                 param.put("vanchuyen","ship");
                 return param;
             }

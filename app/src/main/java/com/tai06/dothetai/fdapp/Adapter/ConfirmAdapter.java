@@ -11,11 +11,12 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
-import com.tai06.dothetai.fdapp.AdminActivity.ConfirmDonhangActivity;
-import com.tai06.dothetai.fdapp.Fragment.DonHang.ShipClientFragment;
+import com.tai06.dothetai.fdapp.AdminActivity.ConfirmCTHD.ConfirmDonhangActivity;
+import com.tai06.dothetai.fdapp.AdminActivity.ConfirmCTHD.FragmentConfirm.WaitingConfirmFragment;
 import com.tai06.dothetai.fdapp.OOP.CTHD;
 import com.tai06.dothetai.fdapp.R;
 
@@ -24,17 +25,17 @@ import java.util.List;
 public class ConfirmAdapter extends RecyclerView.Adapter<ConfirmAdapter.ViewHolder> {
 
     private List<CTHD> mList;
-    private Context mContext;
+    private Fragment mFrag;
 
-    public ConfirmAdapter(List<CTHD> mList, Context mContext) {
+    public ConfirmAdapter(List<CTHD> mList, Fragment mFrag) {
         this.mList = mList;
-        this.mContext = mContext;
+        this.mFrag = mFrag;
     }
 
     @NonNull
     @Override
     public ConfirmAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_item_donhang, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_item_confirm, parent, false);
         return new ViewHolder(view);
 
 }
@@ -55,7 +56,21 @@ public class ConfirmAdapter extends RecyclerView.Adapter<ConfirmAdapter.ViewHold
         holder.ic_expand_more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((ConfirmDonhangActivity)mContext).ShowHide(holder.ic_expand_more,holder.table_detail);
+                ((WaitingConfirmFragment)mFrag).ShowHide(holder.ic_expand_more,holder.table_detail);
+            }
+        });
+
+        if (cthd.getTrangthai().equals("Đang vận chuyển")){
+            holder.cancel_donhang.setVisibility(View.GONE);
+        }
+
+        holder.confirm_donhang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String text_btn = holder.confirm_donhang.getText().toString().trim();
+                if (text_btn.equals("Xác nhận")){
+                    ((WaitingConfirmFragment)mFrag).postUpdateConfirmCTHD(holder.status,cthd.getMa_hd(),position);
+                }
             }
         });
     }
@@ -69,7 +84,7 @@ public class ConfirmAdapter extends RecyclerView.Adapter<ConfirmAdapter.ViewHold
         ImageView image_product;
         ImageButton ic_expand_more;
         TextView name_product,price,status,soluong;
-        Button cancel_donhang;
+        Button confirm_donhang,cancel_donhang;
         TableLayout table_detail;
         //chitietdonhang
         TextView ten_kh,diachi,sdt,ngaydat_hd,ngaygiao_hd,thanhtoan;
@@ -81,6 +96,7 @@ public class ConfirmAdapter extends RecyclerView.Adapter<ConfirmAdapter.ViewHold
             price = itemView.findViewById(R.id.price);
             soluong = itemView.findViewById(R.id.soluong);
             status = itemView.findViewById(R.id.status);
+            confirm_donhang = itemView.findViewById(R.id.confirm_donhang);
             cancel_donhang = itemView.findViewById(R.id.cancel_donhang);
 
             //chitiethoadon

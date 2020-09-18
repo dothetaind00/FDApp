@@ -66,6 +66,7 @@ public class ShipClientFragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_ship_client, container, false);
         init();
+        progress_dialog();
         initHandler();
         getKhachHang();
         check_donhang();
@@ -75,6 +76,13 @@ public class ShipClientFragment extends Fragment {
     private void init() {
         recycle_donhang = view.findViewById(R.id.recycle_donhang);
         empty_donhang = view.findViewById(R.id.empty_donhang);
+    }
+
+    public void progress_dialog(){
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.show();
+        progressDialog.setContentView(R.layout.progress_dialog);
+        progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
     }
 
     private void initHandler() {
@@ -152,6 +160,7 @@ public class ShipClientFragment extends Fragment {
                                 msg.what = MSG_DONHANG;
                                 msg.obj = list;
                                 handler.sendMessage(msg);
+                                progressDialog.dismiss();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -162,6 +171,7 @@ public class ShipClientFragment extends Fragment {
                     public void onErrorResponse(VolleyError error) {
                         Toast.makeText(getActivity(), "Xảy ra lỗi", Toast.LENGTH_SHORT).show();
                         Log.d("AAA", "Error" + error.toString());
+                        progressDialog.dismiss();
                     }
                 }) {
                     @Override

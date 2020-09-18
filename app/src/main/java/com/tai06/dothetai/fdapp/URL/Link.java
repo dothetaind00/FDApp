@@ -44,6 +44,12 @@ public class Link {
     public static final String URL_getDateDonhang = "https://tai06dothe.000webhostapp.com/FDApp/PHP/getDateDonhang.php";
     public static final String URL_postdatedonhang = "https://tai06dothe.000webhostapp.com/FDApp/PHP/postdatedonhang.php";
 
+    //Confirm don hang
+    public static final String URL_postStatusConfirmDH = "https://tai06dothe.000webhostapp.com/FDApp/PHP/postStatusConfirmDH.php";
+    public static final String URL_postUpdateConfirmCTHD = "https://tai06dothe.000webhostapp.com/FDApp/PHP/postUpdateConfirmCTHD.php";
+    public static final String URL_postUpdatesSucessConfirm = "https://tai06dothe.000webhostapp.com/FDApp/PHP/postUpdateSuccessConfirm.php";
+    public static final String URL_check_confirm ="https://tai06dothe.000webhostapp.com/FDApp/PHP/check_confirm.php";
+
     //hoa don
     public static final String URL_postInsertHD = "https://tai06dothe.000webhostapp.com/FDApp/PHP/postInsertHD.php";
     public static final String URL_postInsertCTHD = "https://tai06dothe.000webhostapp.com/FDApp/PHP/postInsertCTHD.php";
